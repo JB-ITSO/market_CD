@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-//var ServerUrl = "http://localhost:8080";
+var ServerUrl = "http://localhost:8080";
 //var ServerUrl = "http://13.125.114.252:8080";
-var ServerUrl = "https://market5478.com:8080";
+//var ServerUrl = "https://market5478.com:8080";
 
 // 파라미터 받기
 function getParameterByName(name) {
