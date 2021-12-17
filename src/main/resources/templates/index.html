@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <title>진짜시장</title>
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="./resource/css/common/common.css" />
+    <link rel="stylesheet" type="text/css" href="./resource/css/common/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./resource/css/common/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./resource/css/main/index.css" />
+    <link rel="stylesheet" type="text/css" href="./resource/css/common/swiper.min.css" />
+
+    <!-- js -->
+    <script src="./resource/js/jquery-1.12.4.min.js"></script>
+    <script src="./resource/js/fontawesome.min.js"></script>
+    <script src="./resource/js/swiper.min.js"></script>
+    <script src="./resource/js/common.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf45249452b9fe157c9b01c87080f2be&libraries=services"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
+</head>
+
+
+<script>
+    var mid;
+    var lat = 0;
+    var lon = 0;
+    var marketName;
+    var marketID;
+
+
+    $( document ).ready(function() {
+        // default
+        getMarketInfoWithLatLon(36.78384569347095, 126.45479605325816);
+        //현재위치 반환
+        getCurrentLatLon();
+
+        marketName = sessionStorage.getItem("marketName");
+        marketID = sessionStorage.getItem("marketID");
+
+        mid = getParameterByName('mid');
+        sessionStorage.setItem("mid", mid );
+        // 공지사항 리스트
+        noticeList();
+        // 카테고리 리스트
+        mainCategoryList();
+        // 상단 베너
+        getEventSlide();
+        // 중간 베너
+        banneerList('M');
+        // 로그인 여부
+        loginCheck();
+
+    });
+
+    var cnt = 0;
+    function testFunction() {
+        cnt++;
+
+        if(cnt > 20){
+            alert("활성화");
+            window.location.href = 'https://map.kakao.com';
+        }
+    }
+</script>
+
+
+<body>
+    <div id="wrap">
+        <!-- Header Section -->
+        <div class="header-container">
+            <div class="head-wrapper">
+                <img src="./resource/image/common/header-icon.png">
+            </div>
+            <div class="body-wrapper">
+                <p class="test" onclick="testFunction()">진짜시장</p>
+            </div>
+        </div>
+        
+        <!-- Content Section -->
+        <section id="container">
+            <div class="notice-wrap">
+                <!-- Notice Rolling List -->
+                <div class="notice-list-wrap">
+                    <ul class="notice-list" id="notice-list">
+                    </ul>
+                </div>
+            </div>
+            <div class="menu-tab-wrap">
+                <div class="btn-wrap">
+                    <a class="go-market">ooo 시장</a>
+                </div>
+                <div class="btn-wrap">
+                    <a class="go-event">이벤트</a>
+                </div>
+            </div>
+            <!-- Main Slide Banner -->
+            <div class="slide-banner-wrap">
+                <ul class="swiper-wrapper" id="eventSlide">
+                    <li class="swiper-slide">
+                        <img src="https://via.placeholder.com/420x180">
+                    </li>
+                    <li class="swiper-slide">
+                        <img src="https://via.placeholder.com/420x180">
+                    </li>
+                </ul>
+                <div class="swiper-pagination"></div>
+            </div>
+            <!-- Filter menu -->
+            <div class="filter-menu-wrap">
+                <div class="category-wrap">
+                    <ul class="swiper-wrapper" id="categoryList">
+                    </ul>
+                </div>
+            </div>
+            <!-- 진행중인 이벤트 -->
+            <div class="event-container">
+                <p class="event-tit">진행중인 이벤트</p>
+                <!-- <p>진행중인 이벤트가 없습니다.</p> -->
+                <div class="event-wrap">
+                    <div class="item">
+                        <img class="event-img" src="https://via.placeholder.com/420x180">
+                        <p class="event-name">이벤트 이름</p>
+                        <p class="market-name"><img src="./resource/image/common/location-img.png"><span class="mname">시장 이름</span></p>
+                        <p class="date"><span>2021.09.08</span> ~ <span>2021.09.08</span></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Recomend Market -->
+            <div class="market-list-wrap">
+                <p class="list-title">추천가게</p>
+                <div class="list-container" id="recStore">   
+                </div>
+            </div>
+            <!-- Middle Banner -->
+            <div class="middle-banner-wrap" id="middleBanner">
+                <img src="https://via.placeholder.com/420x103">
+            </div>
+            <!-- Best Market -->
+            <div class="market-list-wrap">
+                <p class="list-title">인기가게</p>
+                <div class="list-container" id="popStore">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Floating Bottom Menu -->
+        <div class="floating-menu-container">
+            <div class="wrapper">
+                <div class="menu-item active">
+                    <a href="/">
+                        <div class="icon-wrap">
+                            <img src="./resource/image/common/home-on.png">
+                        </div>
+                       <p class="menu-name">홈</p>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="/user/couponList">
+                        <div class="icon-wrap">
+                            <img src="./resource/image/common/coupon-off.png">
+                        </div>
+                        <p class="menu-name">쿠폰</p>
+                     </a>
+                </div>
+                <div class="menu-item">
+                    <a href="/market/searchMarket">
+                        <div class="icon-wrap">
+                            <img src="./resource/image/common/search-off.png">
+                        </div>
+                        <p class="menu-name">시장 찾기</p>
+                     </a>
+                </div>
+                <div class="menu-item">
+                    <a href="/user/mypage">
+                        <div class="icon-wrap">
+                            <img src="./resource/image/common/mypage-off.png">
+                        </div>
+                        <p class="menu-name">내 정보</p>
+                     </a>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="./resource/js/jquery.vticker-min.js"></script>
+
+        <script type="text/javascript">
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            $(function (e) {
+
+                //카테고리 메뉴 클릭 이벤트
+                $(document).on('click', '.menu-item', function(){
+
+                    var idVal = $(this).attr('id');
+                    var idLength = idVal.length; 
+                    var cid = idVal.substr(4,idLength);
+
+                    $('.menu-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    $('#recStore').empty()
+                    $('#popStore').empty()
+                    $('#storeList').empty()
+                    recStoreList(cid);
+                    popStoreList(cid);
+                    storeList(cid);
+                });
+                // Notice Rolling List
+                $('.notice-list-wrap').vTicker({showItems: 4, pause: 1500});
+
+
+
+            });
+
+            //현재 위치 반환
+            function getCurrentLatLon() {
+                if (navigator.geolocation) {
+
+                    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        console.log(position);
+
+                        var latVal = position.coords.latitude, // 위도
+                            lonVal = position.coords.longitude; // 경도
+
+                        lat = latVal;
+                        lon = lonVal;
+                        getMarketInfoWithLatLon(lat, lon);
+
+
+                    });
+
+                } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+                }
+            }
+        </script>
+
+
+    </div>
+</body>
+</html>
+
+
