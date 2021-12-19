@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>진짜시장</title>
+    <title>창동시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="./resource/css/common/common.css" />
@@ -35,10 +35,7 @@
 
 
     $( document ).ready(function() {
-        // default
-        getMarketInfoWithLatLon(36.78384569347095, 126.45479605325816);
-        //현재위치 반환
-        getCurrentLatLon();
+
 
         marketName = sessionStorage.getItem("marketName");
         marketID = sessionStorage.getItem("marketID");
@@ -56,6 +53,10 @@
         // 로그인 여부
         loginCheck();
 
+        //추천가게 리스트
+        mainRecStoreList(1);
+        //인기가게 리스트
+        mainPopStoreList(1);
     });
 
     var cnt = 0;
@@ -78,7 +79,7 @@
                 <img src="./resource/image/common/header-icon.png">
             </div>
             <div class="body-wrapper">
-                <p class="test" onclick="testFunction()">진짜시장</p>
+                <p class="test" onclick="testFunction()">창동시장</p>
             </div>
         </div>
         
@@ -93,10 +94,10 @@
             </div>
             <div class="menu-tab-wrap">
                 <div class="btn-wrap">
-                    <a class="go-market">ooo 시장</a>
+                    <a class="go-market" href="/market/marketDetail?mkid=1">창동 시장</a>
                 </div>
                 <div class="btn-wrap">
-                    <a class="go-event">이벤트</a>
+                    <a class="go-event" href="/event/eventList?mkid=1">이벤트</a>
                 </div>
             </div>
             <!-- Main Slide Banner -->
