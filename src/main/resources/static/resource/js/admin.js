@@ -359,7 +359,7 @@ function storeList(){
 
 
                 storeHtml += `
-                                <tr class="list-item" onClick="location.href='market_detail.html?sid=${store.store}&cmd=2'">
+                                <tr class="list-item" onClick="location.href='/admin/storeDetail?sid=${store.store}&cmd=2'">
                                     <td onclick="event.cancelBubble=true">
                                         <input type="checkbox" class="delChk" name="chk[]" value="${store.store}"/>
                                     </td>
