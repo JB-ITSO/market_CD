@@ -54,6 +54,7 @@ body {
 .floating-menu-container .wrapper{
     display: flex;
     width: 100%;
+    justify-content: space-evenly;
 }
 .floating-menu-container .wrapper .menu-item{
     width: 25%;
