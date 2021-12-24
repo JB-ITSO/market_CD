@@ -23,6 +23,7 @@ public class FILE {
     private String uuid;
     private String path;
     private String type;
+    private String link;
     private String delYn;
     private Date regDate;
     private String regId;

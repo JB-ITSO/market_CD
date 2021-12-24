@@ -21,7 +21,7 @@
     <insert id="insertBanner" parameterType="java.util.List">
         INSERT INTO BANNER
         (
-            NAME, UUID, PATH, TYPE, REGID, CHNID
+            NAME, UUID, PATH, TYPE, LINK, REGID, CHNID
         )
         VALUES
         <foreach collection="files" item="file" separator=",">
@@ -30,6 +30,7 @@
                 #{file.uuid},
                 #{file.path},
                 #{file.type},
+                #{file.link},
                 #{file.regId},
                 #{file.chnId}
             )
