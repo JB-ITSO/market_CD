@@ -1141,6 +1141,11 @@ function getEventSlide(){
             });
             $("#eventSlide").html(imgHtml);
 
+            if(index == 0){
+                $('.event-wrap').hide();
+                $('.no-event').show();
+            }
+
         },
         error: function(result) {
             console.log(result);
