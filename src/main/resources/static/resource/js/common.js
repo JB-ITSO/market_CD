@@ -1,6 +1,6 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:8000";
+var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
 //var ServerUrl = "https://market5478.com:8080";
 var currentDate = '';
@@ -1124,13 +1124,14 @@ function getEventSlide(){
                         imgHtml +=
                             `<li class="swiper-slide">\n`+
                                ` <span class="status `+ proceStatus +`"> `+ isProce +`</span>\n`+
-                            `  <img src="`+src+`">\n`+
+                            `  <img src="`+src+`" onclick="location.href='/event/eventDetail?eid=${event.event}'">\n`+
                             `</li>`;
                     }
                 }
 
 
                 if(index == 1){
+                    $('.event-link').attr('href', '/event/eventDetail?eid='+`${event.event}`);
                     $('.event-name').text(`${event.title}`);
                     $('.mname').text(`${event.mname}`);
                     $('.event-img').attr("src",src);
@@ -1139,7 +1140,8 @@ function getEventSlide(){
                 }
 
             });
-            $("#eventSlide").html(imgHtml);
+
+            banneerList('T', imgHtml);
 
             if(index == 0){
                 $('.event-wrap').hide();
@@ -2656,7 +2658,7 @@ function getLoginInfo(){
 }
 
 //상단 베너 호출
-function banneerList(type){
+function banneerList(type, imgHtml){
     // 가게정보
     var data = {'type' : type};
     $.ajax({
@@ -2669,7 +2671,8 @@ function banneerList(type){
         data: JSON.stringify(data),
         success: function(result) {
             console.log(result);
-            showBanner(result.BODY, type);
+
+            showBanner(result.BODY, type, imgHtml);
         },
         error: function(result) {
             console.log(result);
@@ -2677,7 +2680,7 @@ function banneerList(type){
     });
 }
 
-function showBanner(fileList, type){
+function showBanner(fileList, type, imgHtml){
     switch (type) {
         case 'T' :
             if(fileList.length != 0) {
@@ -2686,11 +2689,12 @@ function showBanner(fileList, type){
                     var src = ServerUrl + '/file/download?fileName=' + `${file.path}`;
                     bannerHtml += `
                     <li class="swiper-slide">
-                        <img src="` + src + `" width="420" height="180">
+                        <img src="` + src + `" width="420" height="180" onclick="location.href='${file.link}'">
                     </li>
                             `;
                 });
-                $("#topBanner").html(bannerHtml);
+                bannerHtml += imgHtml;
+                $("#eventSlide").html(bannerHtml);
 
                 var slide = new Swiper('.slide-banner-wrap', {
                     slidesPerView : '1',

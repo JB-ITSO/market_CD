@@ -1,6 +1,6 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:8000";
+var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
 //var ServerUrl = "https://market5478.com:8080";
 
@@ -980,6 +980,8 @@ function showBanner(fileList, type){
                                             <span class="img-del-btn">삭제</span>
                                         </div>
                                     </div>
+                                    <p class="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요.)</p>
+                                    <input type="text" name="link" value="${file.link}" readonly/>
                                 </div>
                     `;
         });
@@ -999,6 +1001,8 @@ function showBanner(fileList, type){
                                             <span class="img-del-btn">삭제</span>
                                         </div>
                                     </div>
+                                    <p class="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요.)</p>
+                                    <input type="text" name="link" value="${file.link}" readonly/>
                                 </div>
                     `;
         $("#"+domId).html(bannerHtml);

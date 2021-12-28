@@ -100,6 +100,17 @@
     </div>
 </body>
 
+<style>
+    .img-upload-item{
+        margin-bottom: 15px;
+    }
+    .input-label{
+        line-height: 21px;
+        margin-bottom: 10px;
+    }
+    }
+</style>
+
 <script type="text/javascript">
     $(document).ready(function() {
         // 이미지 Preview
@@ -141,7 +152,9 @@
                          +'        <input type="hidden" name="type" value="T"/>'
                          +'        <span class="img-del-btn">삭제</span>'
                          +'     </div>'
-                         +'  </div>';
+                         +'  </div>'
+                         +'   <p className="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요. 입력한 주소는 수정하실 수 없습니다.)</p>'
+                         +'   <input type="text" name="link" placeholder="링크 주소를 입력해주세요."/>'
                          +'</div>';
             $("#topBanner").append(fileadd);
         });
@@ -162,6 +175,7 @@
                 var chk = doms[j].value.indexOf(fileList[i].name);
                 if(chk > 0){
                     fileList[i].type = $(doms[j]).parent('.img-upload-item').find('input[name="type"]').val()
+                    fileList[i].link = $(doms[j]).parent('.img-upload-item').find('input[name="link"]').val()
                 }
             }
         }
