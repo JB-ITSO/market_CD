@@ -36,6 +36,7 @@
 
     $( document ).ready(function() {
 
+        $('.no-event').hide();
 
         marketName = sessionStorage.getItem("marketName");
         marketID = sessionStorage.getItem("marketID");
@@ -49,7 +50,7 @@
         // 상단 베너
         getEventSlide();
         // 중간 베너
-        banneerList('M');
+        banneerList('M', "");
         // 로그인 여부
         loginCheck();
 
@@ -69,7 +70,6 @@
         }
     }
 </script>
-
 
 <body>
     <div id="wrap">
@@ -119,16 +119,19 @@
                     </ul>
                 </div>
             </div>
-            <!-- 진행중인 이벤트 -->
+
+           <!-- 진행중인 이벤트 -->
             <div class="event-container">
                 <p class="event-tit">진행중인 이벤트</p>
-                <!-- <p>진행중인 이벤트가 없습니다.</p> -->
+                 <p class="no-event">진행중인 이벤트가 없습니다.</p>
                 <div class="event-wrap">
                     <div class="item">
-                        <img class="event-img" src="https://via.placeholder.com/420x180">
-                        <p class="event-name">이벤트 이름</p>
-                        <p class="market-name"><img src="./resource/image/common/location-img.png"><span class="mname">시장 이름</span></p>
-                        <p class="date"><span>2021.09.08</span> ~ <span>2021.09.08</span></p>
+                        <a class="event-link">
+                            <img class="event-img" src="https://via.placeholder.com/420x180">
+                            <p class="event-name">이벤트 이름</p>
+                            <p class="market-name"><img src="./resource/image/common/location-img.png"><span class="mname">시장 이름</span></p>
+                            <p class="date"><span>2021.09.08</span> ~ <span>2021.09.08</span></p>
+                        </a>
                     </div>
                 </div>
             </div>

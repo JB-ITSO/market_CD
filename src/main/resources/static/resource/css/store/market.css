@@ -180,14 +180,8 @@
     color:#6C757D;
     font-weight: 600;
     cursor: pointer;
-    margin-right: 12%;
+    width: 24%;
     position: relative;
-}
-.market-info-wrap .tab-wrap ul li:nth-child(1){
-    margin-left:4.5%;
-}
-.market-info-wrap .tab-wrap ul li:nth-last-child(1){
-    margin-right: 0;
 }
 .market-info-wrap .tab-wrap ul li:hover{
     border-color: #212529;
@@ -592,10 +586,6 @@
 @media screen and (max-width: 410px) {
     .market-info-wrap .tab-wrap .font-nomal{
         font-size: 14px;
-        margin-right: 10%;
-    }
-    .market-info-wrap .tab-wrap ul li:nth-child(1){
-        margin-left:5%;
     }
     .contact-wrap a:nth-child(1){
         text-align: right;
