@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:7070";
+// var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-//var ServerUrl = "https://market5478.com:8080";
+var ServerUrl = "https://changdongmarket.com:8080";
 
 // 파라미터 받기
 function getParameterByName(name) {
@@ -66,9 +66,9 @@ function memberList(){
                                     </td>
                                 </tr>
                                 `;
-                    $("#member-list").html(memberHtml);
                 }
             });
+            $("#member-list").html(memberHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -133,9 +133,9 @@ function memberSearchList(role, keyword){
                                     </td>
                                 </tr>
                                 `;
-                    $("#member-list").html(memberHtml);
                 }
             });
+            $("#member-list").html(memberHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -233,9 +233,9 @@ function marketList(){
                                 </td>
                             </tr>
                             `;
-                $("#market-list").html(marketHtml);
 
             });
+            $("#market-list").html(marketHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -388,8 +388,8 @@ function storeList(){
                                     </td>
                                 </tr>
                                 `;
-                $("#storeList").html(storeHtml);
             });
+            $("#storeList").html(storeHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -455,8 +455,8 @@ function marketSearchList(searchType, keyword){
                                     </td>
                                 </tr>
                                 `;
-                $("#storeList").html(storeHtml);
             });
+            $("#storeList").html(storeHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -542,9 +542,8 @@ function getCategoryList(){
                                     ${category.name}
                                 </label>
                                 `;
-                $(".category-wrap").html(categoryHtml);
             });
-            
+            $(".category-wrap").html(categoryHtml);
         },
         error: function(result) {
             console.log(result);
@@ -619,8 +618,8 @@ function eventList(){
                                     </td>
                                 </tr>
                                 `;
-                $("#eventList").html(eventHtml);
             });
+            $("#eventList").html(eventHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -674,8 +673,8 @@ function getMemberListInEvent(eid){
                                     </td>
                                 </tr>
                                 `;
-                $("#eventList").html(eventHtml);
             });
+            $("#eventList").html(eventHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -758,11 +757,8 @@ function getEventMarketList() {
                 marketHtml += `
                               <option value="${market.market}">${market.name}</option>
                                 `;
-                $("#marketList").html(marketHtml);
-
-
             });
-
+            $("#marketList").html(marketHtml);
         },
         error: function(result) {
             console.log(result);
@@ -810,8 +806,8 @@ function noticeList(){
                                     </td>
                                 </tr>
                                 `;
-                $("#noticeList").html(noticeHtml);
             });
+            $("#noticeList").html(noticeHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {
@@ -890,8 +886,8 @@ function categoryList(){
                                 </tr>
            
                                 `;
-                $("#categoryList").html(categoryHtml);
             });
+            $("#categoryList").html(categoryHtml);
             $('.totalNum').text(total);
         },
         error: function(result) {

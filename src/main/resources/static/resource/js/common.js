@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:7070";
+// var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-//var ServerUrl = "https://market5478.com:8080";
+var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
 var firstCategory;
@@ -390,8 +390,8 @@ function getMarketListBySearch(keyword, order, lat, lon){
                                     <p class="market-info">`+event+`</p>
                                 </div>            
                                 `;
-                $("#marketList").html(storeHtml);
             });
+            $("#marketList").html(storeHtml);
         },
         error: function(result) {
             console.log(result);
@@ -477,8 +477,9 @@ function getStoreListByCategory(category, keyword){
                                     <p class="market-info">`+sInfo+`</p>
                                 </div>            
                                 `;
-                $("#storeList").html(storeHtml);
             });
+            $("#storeList").html(storeHtml);
+
         },
         error: function(result) {
             console.log(result);
@@ -519,8 +520,8 @@ function mainCategoryList(){
                             </li>
                            
                                 `;
-                $("#categoryList").html(categoryHtml);
             });
+            $("#categoryList").html(categoryHtml);
 
         },
         error: function(result) {
@@ -634,8 +635,8 @@ function mainRecStoreList(mid){
                                     <p class="market-info">`+sInfo+`</p>
                                 </div>            
                                 `;
-                $("#recStore").html(recStoreHtml);
             });
+            $("#recStore").html(recStoreHtml);
         },
         error: function(result) {
             console.log(result);
@@ -717,9 +718,9 @@ function mainPopStoreList( mid){
                                     <p class="market-info">`+sInfo+`</p>
                                 </div>            
                                 `;
-                $("#popStore").html(popStoreHtml);
-
             });
+            $("#popStore").html(popStoreHtml);
+
         },
         error: function(result) {
             console.log(result);
@@ -1060,9 +1061,8 @@ function getEventList(mkid, order){
                             <span class="status `+proceStatus+`">`+isProce+`</span>
                         </div>
                             `;
-                $("#eventList").html(eventHtml);
-
             });
+            $("#eventList").html(eventHtml);
 
             // $('.body-wrapper p').text(mname);
 
@@ -1370,8 +1370,9 @@ function getMenuListUser(sid){
                                 <p class="menu-info">${menu.minfo}</p>
                             </div>
                             `;
-                $("#menuList").html(menuHtml);
             });
+            $("#menuList").html(menuHtml);
+
         },
         error: function(result) {
             console.log(result);
@@ -1419,8 +1420,8 @@ function getReviewListUser(sid){
                                 </div>
                             </div>
                             `;
-                $("#reviewHtml").html(reviewHtml);
             });
+            $("#reviewHtml").html(reviewHtml);
 
             total = sum/num;
             $('.total-rate-wrap .total').text(total.toFixed(1));
@@ -1476,8 +1477,8 @@ function getStoreCouponListMain(sid){
                                 </div>
                             </div>
                             `;
-                $("#couponList").html(couponHtml);
             });
+            $("#couponList").html(couponHtml);
 
             if(num != undefined && num != "undefined" && num != null && num != ''){
                 $(' .is-coupon').show();
@@ -1560,9 +1561,8 @@ function getStoreCouponListUser(sid, mid){
                             `;
                 }
 
-
-                $("#couponList").html(couponHtml);
             });
+            $("#couponList").html(couponHtml);
 
             if(num == undefined || num == "undefined" || num == null || num == ''){
                 $('.is-coupon').hide();
@@ -1795,8 +1795,9 @@ function getCouponListUser(mid){
                                 </div>
                             </div>
                             `;
-                $("#couponList").html(couponHtml);
             });
+            $("#couponList").html(couponHtml);
+
         },
         error: function(result) {
             console.log(result);
@@ -1907,9 +1908,9 @@ function managerCategoryList(mid){
                 categoryHtml += `
                                     <option value="${category.category}">${category.name}</option>
                                 `;
-                $("#category").html(categoryHtml);
             });
-            
+            $("#category").html(categoryHtml);
+
         },
         error: function(result) {
             console.log(result);
@@ -2449,8 +2450,8 @@ function getCouponListManager(sid){
                             </div>
                             
                             `;
-                $("#coupon-List").html(couponHtml);
             });
+            $("#coupon-List").html(couponHtml);
 
             $('#coupon-total').text(sum);
         },
@@ -2555,8 +2556,8 @@ function getReviewListManager(sid){
                                 </div>
                             </div>
                             `;
-                $("#reviewHtml").html(reviewHtml);
             });
+            $("#reviewHtml").html(reviewHtml);
 
             total = sum/num;
             $('.total-rate-wrap .total').text(total.toFixed(1));
