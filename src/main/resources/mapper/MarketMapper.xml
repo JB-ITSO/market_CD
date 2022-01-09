@@ -150,6 +150,7 @@
     <select id="getMarketListBySearch" resultType="com.itso.market.mobile.model.MARKET">
         SELECT
             M.*,
+            (SELECT PATH FROM MRFILE WHERE MARKET = M.MARKET ORDER BY MRFILE LIMIT 0,1) AS THUMB,
             (SELECT COUNT(*) FROM EVENT E WHERE E.MARKET = M.MARKET AND E.DELYN = 'N') AS ECNT
         FROM MARKET M
         WHERE M.DELYN = 'N'
