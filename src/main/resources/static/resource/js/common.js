@@ -2,7 +2,7 @@
 //var ServerUrl = "http://13.125.114.252";
 // var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-var ServerUrl = "https://changdongmarket.com:8080";
+ var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
 var firstCategory;

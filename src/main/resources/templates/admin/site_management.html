@@ -65,38 +65,39 @@
          <!-- Content Section -->
          <section id="container">
             <p class="page-name">사이트 관리</p>
-           
-
-            <div class="detail-container">
-                <form name="market-form" id="banner-form" type="post" enctype="multipart/form-data" onsubmit="event.preventDefault(); return saveImage();">
-                    <div class="input-line">
-                        <div class="input-wrap long" style="padding-right:15px;">
-                            <p class="input-label">메인 배너 슬라이드 이미지</p>
-                            <div class="img-upload-wrap top" id="topBanner">
-
-                            </div>
-                            <p class="img-add-btn">이미지 추가</p>
-                        </div>
-                        <div class="input-wrap long">
-                            <p class="input-label">메인 중간 배너 이미지</p>
-                            <div class="img-upload-wrap" id="middleBanner">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-area" href="javascript:window.history.back();">
-                        <input type="submit" value="수정" />
-                    </div>
-                </form>
-            </div>
-            
-
-            <div classs="menu-modal-container">
+             <p class="page-name">사이트 관리</p>
 
 
-            </div>
+             <div class="detail-container">
+                 <form name="market-form" id="banner-form" type="post" enctype="multipart/form-data" onsubmit="event.preventDefault(); return saveImage();">
+                     <div class="input-line">
+                         <div class="input-wrap long" style="padding-right:15px;">
+                             <p class="input-label">메인 배너 슬라이드 이미지</p>
+                             <div class="img-upload-wrap top" id="topBanner">
 
-        </section>
+                             </div>
+                             <p class="img-add-btn">이미지 추가</p>
+                         </div>
+                         <div class="input-wrap long">
+                             <p class="input-label">메인 중간 배너 이미지</p>
+                             <div class="img-upload-wrap" id="middleBanner">
+
+                             </div>
+                         </div>
+                     </div>
+                     <div class="btn-area" href="javascript:window.history.back();">
+                         <input type="submit" value="수정" />
+                     </div>
+                 </form>
+             </div>
+
+
+             <div classs="menu-modal-container">
+
+
+             </div>
+
+         </section>
     </div>
 </body>
 
@@ -134,7 +135,7 @@
                 }
                 reader.readAsDataURL(f);
             });
-            
+
         });
     });
     $(function (e) {
@@ -142,20 +143,20 @@
         $('.img-add-btn').click(function(){
             var idx = $('#topBanner').children().length + 1;
             var fileadd = '<div class="img-upload-item">'
-                         +'   <input class="img-file" type="file" name="simg'+idx+'" />'
-                         +'   <div class="controll-wrap">'
-                         +'     <div class="img-preview">'
-                         +'        <p class="no-img">등록된 이미지 없음</p>'
-                         +'        <img class="preview"/>'
-                         +'     </div>'
-                         +'     <div class="delete-wrap">'
-                         +'        <input type="hidden" name="type" value="T"/>'
-                         +'        <span class="img-del-btn">삭제</span>'
-                         +'     </div>'
-                         +'  </div>'
-                         +'   <p className="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요. 입력한 주소는 수정하실 수 없습니다.)</p>'
-                         +'   <input type="text" name="link" placeholder="링크 주소를 입력해주세요."/>'
-                         +'</div>';
+                +'   <input class="img-file" type="file" name="simg'+idx+'" />'
+                +'   <div class="controll-wrap">'
+                +'     <div class="img-preview">'
+                +'        <p class="no-img">등록된 이미지 없음</p>'
+                +'        <img class="preview"/>'
+                +'     </div>'
+                +'     <div class="delete-wrap">'
+                +'        <input type="hidden" name="type" value="T"/>'
+                +'        <span class="img-del-btn">삭제</span>'
+                +'     </div>'
+                +'  </div>'
+                +'   <p className="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요. 입력한 주소는 수정하실 수 없습니다.)</p>'
+                +'   <input type="text" name="link" placeholder="링크 주소를 입력해주세요."/>'
+                +'</div>';
             $("#topBanner").append(fileadd);
         });
         // 이미지 추가 파일 삭제
@@ -259,5 +260,6 @@
 </script>
 </body>
 </html>
+
 
 

@@ -2,7 +2,7 @@
 //var ServerUrl = "http://13.125.114.252";
 // var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-var ServerUrl = "https://changdongmarket.com:8080";
+// var ServerUrl = "https://changdongmarket.com:8080";
 
 // 파라미터 받기
 function getParameterByName(name) {
@@ -925,7 +925,6 @@ function fnLogout(){
         window.location.href = '/logout';
     }
 }
-
 function banneerList(type){
     // 가게정보
     var data = {'type' : type};
@@ -946,7 +945,6 @@ function banneerList(type){
         }
     });
 }
-
 function showBanner(fileList, type){
     var domId = '';
     var idx = '';
