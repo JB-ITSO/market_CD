@@ -38,4 +38,5 @@ public class MARKET {
     List<FILE> updateFiles;
 
     private Integer ecnt;
+    private String thumb; // 썸네일 이미
 }
