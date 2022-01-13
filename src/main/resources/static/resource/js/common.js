@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-// var ServerUrl = "http://localhost:7070";
+var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
- var ServerUrl = "https://changdongmarket.com:8080";
+//  var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
 var firstCategory;
@@ -351,7 +351,7 @@ function getMarketListBySearch(keyword, order, lat, lon){
 
 
 
-                var src = 'https://via.placeholder.com/71x71';
+                var src = '/resource/image/common/noimg.png';
                 // if(store.files.length != 0){
                 //     if(store.files[0].type != 'L'){
                 //         src = ServerUrl+'/file/download?fileName='+store.files[0].path;
@@ -987,6 +987,45 @@ function getEventMarket(mkid){
             }
         });
     }
+}
+// 메인 이벤트 리스트 불러오기(사용자)
+function getMainEventList(){
+    var index = 0;
+    var data = {};
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        },
+        url: ServerUrl+"/main/getEventList",
+        data: JSON.stringify(data),
+        success: function(result) {
+
+            var imgHtml = '';
+            var src;
+
+            $(result.BODY).each(function(idx, event) {
+                index += 1;
+
+                if(`${event.files}` != null || `${event.files}` != 'null' || `${event.files}` != undefined || `${event.files}` != "undefined" ){
+
+                    if(`${event.files}`.length != 0){
+
+                        src = ServerUrl+'/file/download?fileName='+`${event.files[0].path}`;
+                        imgHtml +=
+                            `  <img src="`+src+`" onclick="location.href='/event/eventDetail?eid=${event.event}'">\n`
+                    }
+                }
+            });
+            $("#eventList").html(imgHtml);
+
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+
 }
 // 이벤트 리스트 불러오기(사용자)
 function getEventList(mkid, order){
@@ -1935,33 +1974,47 @@ function managerMarketList(){
 
 
             marketHtml += `  <option value="">선택하세요</option>  `;
-            $("#market").html(marketHtml);
             $(result.BODY).each(function(idx, market) {
 
                 marketHtml += `
                                     <option value="${market.market}">${market.name}</option>
                                 `;
-                $("#market").html(marketHtml);
-
-
-                //카테고리
-                categoryhtml += `<select name="categories" class="category${market.market}">`;
-                $("#category").html(categoryhtml);
-
-                $(result.BODY[idx].categories).each(function(idx, category) {
-
-                    categoryhtml += `
-
-                                        <option value="${category.category}">${category.name}</option>
-
-                                `;
-                    $("#category").html(categoryhtml);
-
-                });
-                categoryhtml += `</select>`;
-                $("#category").html(categoryhtml);
 
             });
+            $("#market").html(marketHtml);
+
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+}
+// 가게 등록 카테고리 리스트
+function managerMarketCategory(mid, val) {
+    var data = {"market" : mid};
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        },
+        url: ServerUrl+"/manager/getMarket",
+        data: JSON.stringify(data),
+        success: function(result) {
+            console.log(result);
+            var categoryhtml = '';
+
+            //카테고리
+            $(result.BODY.categories).each(function(idx, category) {
+
+                categoryhtml += `
+                                <option value="${category.category}">${category.name}</option>
+                            `;
+            });
+            $("#category").html(categoryhtml);
+
+
+            $("#category").val(val).prop("selected", true);
 
         },
         error: function(result) {
@@ -1982,14 +2035,21 @@ function managerStoreInfo(sid){
         url: ServerUrl+"/manager/getStore",
         data: JSON.stringify(data),
         success: function(result) {
+            var categoryhtml = '';
             console.log(result);
-
 
             //내가게 축약정보
             $('.store-name').text(result.BODY.sname);
+
+
             $(result.BODY.categories).each(function(idx, category) {
+                managerMarketCategory(result.BODY.market, `${category.category}`);
+
                 $('.category').text(`${category.name}`);
             });
+
+
+
             var sInfo;
             if(result.BODY.sinfo.length >= 30){
                 sInfo = result.BODY.sinfo.substr(0,30)+"...";
@@ -2003,18 +2063,12 @@ function managerStoreInfo(sid){
             //-------------------------------------------------------------//
 
 
-            $('.category-wrap').show();
-            $('select[name=categories]').hide();
-            $('select[name=categories]').attr('disabled', true);
-            $('.category'+result.BODY.market).show();
-            $('.category'+result.BODY.market).attr('disabled', false);
-
 
             // 가게 상세 입렵정보
             $('input[name=store]').val(result.BODY.store);
             $('input[name=sname]').val(result.BODY.sname);
             $('input[name=mname]').val(result.BODY.mname);
-            
+
             $(result.BODY.categories).each(function(idx, category) {
 
                 // $('#category').prop("selected", true);
@@ -2024,7 +2078,7 @@ function managerStoreInfo(sid){
             });
             $(result.BODY.workdays).each(function(idx, workday) {
 
-                $('.workdays'+`${workday.type}`).prop("checked", true);  
+                $('.workdays'+`${workday.type}`).prop("checked", true);
             });
 
             $('#market').val(result.BODY.market).prop("selected", true);
@@ -2056,11 +2110,11 @@ function managerStoreInfo(sid){
                     }
 
                     var fileadd = '<div class="img-wrap img-wrap'+idx+'">'
-                                +'   <input type="hidden" name="sfile" value="'+sfile+'"/>'
-                                +'   <input type="hidden" name="type" value="'+type+'"/>'
-                                +'   <span class="remove-btn"><img src="../resource/image/manager/close-btn.png"></span>'
-                                +'   <img class="preview" src="'+src+'">'
-                                 +'</div>';
+                        +'   <input type="hidden" name="sfile" value="'+sfile+'"/>'
+                        +'   <input type="hidden" name="type" value="'+type+'"/>'
+                        +'   <span class="remove-btn"><img src="../resource/image/manager/close-btn.png"></span>'
+                        +'   <img class="preview" src="'+src+'">'
+                        +'</div>';
                     if(type == 'N'){
                         $(".store-img-upload-wrap").append(fileadd);
                     }

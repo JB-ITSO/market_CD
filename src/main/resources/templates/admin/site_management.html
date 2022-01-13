@@ -32,6 +32,11 @@
             banneerList('T');
             // 중간 베너
             banneerList('M');
+
+            if($('#middleBanner').children().length == 0){
+                $('.middle-add').show();
+            }
+
         });
     </script>
 
@@ -83,6 +88,8 @@
                              <div class="img-upload-wrap" id="middleBanner">
 
                              </div>
+                             <p class="img-add-btn middle-add">이미지 추가</p>
+
                          </div>
                      </div>
                      <div class="btn-area" href="javascript:window.history.back();">
@@ -139,8 +146,19 @@
         });
     });
     $(function (e) {
+
         // 이미지 파일 추가 버튼
         $('.img-add-btn').click(function(){
+
+            var type = '';
+
+            if($(this).hasClass('middle-add')){
+                type = 'M';
+            }
+            else{
+                type = 'T';
+            }
+
             var idx = $('#topBanner').children().length + 1;
             var fileadd = '<div class="img-upload-item">'
                 +'   <input class="img-file" type="file" name="simg'+idx+'" />'
@@ -150,24 +168,43 @@
                 +'        <img class="preview"/>'
                 +'     </div>'
                 +'     <div class="delete-wrap">'
-                +'        <input type="hidden" name="type" value="T"/>'
+                +'        <input type="hidden" name="type" value="'+type+'"/>'
                 +'        <span class="img-del-btn">삭제</span>'
                 +'     </div>'
                 +'  </div>'
                 +'   <p className="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요. 입력한 주소는 수정하실 수 없습니다.)</p>'
                 +'   <input type="text" name="link" placeholder="링크 주소를 입력해주세요."/>'
                 +'</div>';
-            $("#topBanner").append(fileadd);
+
+            if($(this).hasClass('middle-add')){
+                $('.middle-add').hide();
+                $("#middleBanner").append(fileadd);
+            }
+            else{
+                $("#topBanner").append(fileadd);
+
+            }
         });
+
+
         // 이미지 추가 파일 삭제
         $('.img-upload-wrap').on('click', '.img-del-btn' ,function() {
             if(confirm('해당이미지는 바로 삭제됩니다. 그래도 진행하시겠습니까?')){
                 deleteImage(this);
             }
         });
+
     });
 
     function checkForm(fileList) {
+
+        var fileCK = $("input[type=file]").val();
+        if(!fileCK){
+            alert("파일을 등록해주세요.");
+            return false;
+        }
+
+
         var formJson = {};
 
         var doms = document.getElementsByClassName('img-file');

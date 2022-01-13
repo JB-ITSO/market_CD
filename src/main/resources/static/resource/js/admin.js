@@ -2,7 +2,7 @@
 //var ServerUrl = "http://13.125.114.252";
 // var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-// var ServerUrl = "https://changdongmarket.com:8080";
+var ServerUrl = "https://changdongmarket.com:8080";
 
 // 파라미터 받기
 function getParameterByName(name) {
@@ -974,7 +974,7 @@ function showBanner(fileList, type){
                                             <span class="img-del-btn">삭제</span>
                                         </div>
                                     </div>
-                                    <p class="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요.)</p>
+                                    <p class="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요. 입력한 주소는 수정하실 수 없습니다.)</p>
                                     <input type="text" name="link" value="${file.link}" readonly/>
                                 </div>
                     `;
@@ -982,23 +982,12 @@ function showBanner(fileList, type){
         $("#"+domId).html(bannerHtml);
     } else {
         var bannerHtml = '';
-        bannerHtml += `
-                                <div class="img-upload-item">
-                                    <input id="img1" class="img-file" type="file" name="simg`+idx+`" />
-                                    <div class="controll-wrap">
-                                        <div class="img-preview">
-                                            <p class="no-img">등록된 이미지 없음</p>
-                                            <img class="preview" src=""/> 
-                                        </div>
-                                        <div class="delete-wrap">
-                                            <input type="hidden" name="type" value="`+type+`"/>
-                                            <span class="img-del-btn">삭제</span>
-                                        </div>
-                                    </div>
-                                    <p class="input-label">*클릭 시 이동할 링크 주소 (http://를 포함해서 입력해 주세요.)</p>
-                                    <input type="text" name="link" value="${file.link}" readonly/>
-                                </div>
-                    `;
+
         $("#"+domId).html(bannerHtml);
+    }
+
+    if($('#middleBanner').children().length == 0){
+        // $('.middle-add').show();
+        // alert('adsf');
     }
 }
