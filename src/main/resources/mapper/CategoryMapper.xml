@@ -38,4 +38,20 @@
         WHERE DELYN = 'N'
         ORDER BY CATEGORY DESC
     </select>
+
+    <update id="deleteMCategory">
+        UPDATE MCATEGORY SET
+            DELYN = 'Y',
+            CHNDATE = NOW(),
+            CHNID = #{chnId}
+        WHERE CATEGORY = #{category}
+    </update>
+
+    <update id="deleteSCategory">
+        UPDATE SCATEGORY SET
+            DELYN = 'Y',
+            CHNDATE = NOW(),
+            CHNID = #{chnId}
+        WHERE CATEGORY = #{category}
+    </update>
 </mapper>

@@ -15,4 +15,6 @@ public interface CategoryDao {
     int updateCategory(CATEGORY category);
     int deleteCategory(CATEGORY category);
     List<CATEGORY> getCategoryList();
+    int deleteMCategory(CATEGORY category);
+    int deleteSCategory(CATEGORY category);
 }

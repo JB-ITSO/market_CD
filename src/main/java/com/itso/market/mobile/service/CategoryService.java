@@ -34,7 +34,13 @@ public class CategoryService {
 
     // 회원 삭제
     public int deleteCategory(CATEGORY category){
-        return categoryDao.deleteCategory(category);
+        int result = categoryDao.deleteCategory(category);
+
+        if(result > 0){ // 해당카테고리를 가진 시장과 가게 수정
+            categoryDao.deleteMCategory(category);
+            categoryDao.deleteSCategory(category);
+        }
+        return result;
     }
 
     public List<CATEGORY> getCategoryList() {
