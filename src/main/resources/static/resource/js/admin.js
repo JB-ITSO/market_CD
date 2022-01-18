@@ -464,6 +464,107 @@ function marketSearchList(searchType, keyword){
         }
     });
 }
+// 시장 상세정보 불러오기
+function getMarket(mid){
+    var data = {"market":mid};
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        },
+        url: ServerUrl+"/admin/getMarket",
+        data: JSON.stringify(data),
+        success: function(result) {
+            console.log(result);
+
+            $('input[name=name]').val(result.BODY.name);
+            $('input[name=phone]').val(result.BODY.phone);
+            $('input[name=manager]').val(result.BODY.manager);
+            $('input[name=email]').val(result.BODY.email);
+            $('input[name=holiday]').val(result.BODY.holiday);
+            $('input[name=homepage]').val(result.BODY.homepage);
+            $('input[name=open]').val(result.BODY.open);
+            $('input[name=park]').val(result.BODY.park);
+            $('input[name=address]').val(result.BODY.address);
+            $('input[name=lat]').val(result.BODY.lat);
+            $('input[name=lon]').val(result.BODY.lon);
+            $('textarea').val(result.BODY.detail);
+            $(result.BODY.categories).each(function(idx, category) {
+
+                $('.category'+`${category.category}`).prop("checked", true);
+
+            });
+
+            var imgHtml = '';
+            if(result.BODY.files.length != 0){
+                $(result.BODY.files).each(function(idx, file) {
+                    var src = ServerUrl+'/file/download?fileName='+`${file.path}`;
+                    var mrfile = `${file.mrfile}`;
+                    imgHtml += '                                <div class="img-upload-item">\n' +
+                        '                                    <div class="controll-wrap">\n' +
+                        '                                        <div class="img-preview">\n' +
+                        '                                            <img class="preview" src="'+src+'" style="display: block;"/>\n' +
+                        '                                        </div>\n' +
+                        '                                        <div class="delete-wrap">\n' +
+                        '                                            <input type="hidden" name="mrfile" value="'+mrfile+'"/>\n' +
+                        '                                            <span class="img-del-btn">삭제</span>\n'+
+                        '                                        </div>\n' +
+                        '                                    </div>\n' +
+                        '                                </div>';
+                });
+            } else {
+                imgHtml += '                                <div class="img-upload-item">\n' +
+                    '                                    <input id="img1" class="img-file" type="file" accept="image/*" name="pimg" />\n' +
+                    '                                    <div class="controll-wrap">\n' +
+                    '                                        <div class="img-preview">\n' +
+                    '                                            <p class="no-img">등록된 이미지 없음</p>\n' +
+                    '                                            <img class="preview" src="" />\n' +
+                    '                                        </div>\n' +
+                    '                                        <div class="delete-wrap">\n' +
+                    '                                        </div>\n' +
+                    '                                    </div>\n' +
+                    '                                </div>';
+            }
+
+            $("#imgFile").html(imgHtml);
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+}
+
+// 가게 카테고리 불러오기
+function marketCategoryList(mid){
+    var data = {"market":mid};
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        },
+        url: ServerUrl+"/admin/getMarket",
+        data: JSON.stringify(data),
+        success: function(result) {
+            console.log(result);
+            var categoryhtml = '';
+            $(result.BODY.categories).each(function(idx, category) {
+
+                categoryhtml += `
+                                <option value="${category.category}">${category.name}</option>
+                            `;
+            });
+            $("#category").html(categoryhtml);
+
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+}
+
+
 // 가게 상세정보 불러오기
 function getStore(sid){
     var data = {"store":sid};
@@ -488,8 +589,8 @@ function getStore(sid){
             
                 $(result.BODY.categories).each(function(idx, category) {
 
-                    $('.category'+`${category.category}`).prop("checked", true);  
-                    
+                        $('#category').val(`${category.category}`).prop("selected", true);
+
                 });
                 $(result.BODY.workdays).each(function(idx, workday) {
 

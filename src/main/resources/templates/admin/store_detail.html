@@ -28,10 +28,11 @@
         var msg;
 
         $( document ).ready(function() {
+
+            marketCategoryList(1);
+
             var sid = getParameterByName('sid');
             cmd = getParameterByName('cmd');
-
-            StoreCategoryList();
             if(cmd == 1){
                 formChg = '/admin/saveStore';
                 msg = '등록되었습니다.';
@@ -87,7 +88,7 @@
                         </div>
                         <div class="input-wrap">
                             <p class="input-label">시장</p>
-                            <input type="text" name="mname" value="서산동부시장" />
+                            <input type="text" name="mname" value="서산동부시장" readonly/>
                         </div>
                     </div>
                     <div class="input-line">
@@ -100,6 +101,9 @@
                         <div class="input-wrap">
                             <p class="input-label">카테고리</p>
                             <div class="category-wrap">
+                                <select name="categories" id="category">
+
+                                </select>
                             </div>
                         </div>
                         <div class="input-wrap">

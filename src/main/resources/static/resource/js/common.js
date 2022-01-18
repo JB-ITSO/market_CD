@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:7070";
+// var ServerUrl = "http://localhost:7070";
 //var ServerUrl = "http://13.125.114.252:8080";
-//  var ServerUrl = "https://changdongmarket.com:8080";
+ var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
 var firstCategory;
@@ -219,77 +219,6 @@ function getNotice(nid){
         }
     });
 }
-// 메인 카테고리 리스트
-function mainCategoryList(){
-    var data = {};
-    var index = 0;
-    $.ajax({
-        type: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        },
-        url: ServerUrl+"/main/getCategoryList",
-        async:false,
-        data: JSON.stringify(data),
-        success: function(result) {
-            console.log(result);
-            var categoryHtml = '';
-
-            $(result.BODY).each(function(idx, category) {
-
-                if(idx == 0){
-                    firstCategory = category.category;
-                }
-
-
-                index += 1;
-
-                categoryHtml += `
-                             <li class="swiper-slide">
-                                <a href="">
-                                    <span>${category.name}</span>    
-                                </a>
-                            </li>
-                           
-                                `;
-                $("#categoryList").html(categoryHtml);
-            });
-
-        },
-        error: function(result) {
-            console.log(result);
-        }
-    });
-    if(index <= 4){
-        categorySlide = new Swiper('.category-wrap', {
-            slidesPerView: 4,
-            spaceBetween: 10,
-            observer: true,
-            observeParents: true,
-            breakpoints: {
-                370:{
-                    slidesPerColumn: 3,
-                },
-            }
-        });
-    } else{
-        categorySlide = new Swiper('.category-wrap', {
-            slidesPerView: 4,
-            slidesPerColumn: 2,
-            spaceBetween: 10,
-            observer: true,
-            observeParents: true,
-            breakpoints: {
-                370:{
-                    slidesPerColumn: 3,
-                    slidesPerView: 2,
-                },
-            }
-        });
-    }
-}
-
 // 햔재 위치 근처 시장처
 function getMarketInfoWithLatLon(lat, lon){
 
@@ -514,7 +443,7 @@ function mainCategoryList(){
 
                 categoryHtml += `
                              <li class="swiper-slide">
-                                <a href="/market/searchCategory?category=${category.category}">
+                                <a href="/market/searchCategory?category=${category.category}&categoryName=${category.name}">
                                     <span>${category.name}</span>    
                                 </a>
                             </li>
@@ -535,6 +464,10 @@ function mainCategoryList(){
             spaceBetween: 10,
             observer: true,
             observeParents: true,
+            scrollbar : {
+                el : '.swiper-scrollbar',
+                draggable: true,
+            },
             breakpoints: {
                 370:{
                     slidesPerColumn: 3,
@@ -548,6 +481,10 @@ function mainCategoryList(){
             spaceBetween: 10,
             observer: true,
             observeParents: true,
+            scrollbar : {
+                el : '.swiper-scrollbar',
+                draggable: true,
+            },
             breakpoints: {
                 370:{
                     slidesPerColumn: 3,

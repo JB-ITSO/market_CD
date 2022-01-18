@@ -128,11 +128,14 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    padding: 10px;
+    padding: 10px 10px 20px;
 }
 .filter-menu-wrap .category-wrap .swiper-slide{
     height: 72px;
     border-radius: 5px;
+}
+.filter-menu-wrap .swiper-scrollbar-drag{
+    background: #da4821;
 }
 .filter-menu-wrap .category-wrap .swiper-slide a{
     width: 100%;
@@ -147,6 +150,9 @@
     text-align: center;
     line-height: 20px;
     font-weight: 500;
+}
+.filter-menu-wrap .category-wrap .swiper-slide span{
+    font-weight: 700;
 }
 /* event */
 .event-container{

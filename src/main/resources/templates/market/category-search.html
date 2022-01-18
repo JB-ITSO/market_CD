@@ -30,8 +30,12 @@
         eid = getParameterByName('eid');
         keyword = getParameterByName('keyword');
         category = getParameterByName('category');
+        categoryName = getParameterByName('categoryName');
 
         $('#category').val(category);
+        $('#categoryName').val(categoryName);
+        $('.categoryName').text(categoryName);
+
 
         getStoreListByCategory(category, keyword);
     });
@@ -47,7 +51,7 @@
                 <img src="../resource/image/common/header-icon.png">
             </div>
             <div class="body-wrapper">
-                <p>내 주변 시장</p>
+                <p class="categoryName">내 주변 시장</p>
                 <a href="javascript:window.history.back();"><img src="../resource/image/store/back-icon.png"></a>
             </div>
         </div>
@@ -60,6 +64,7 @@
                         <input type="image" src='../resource/image/common/search.png'>
                         <input type="text" name="keyword" value="" placeholder="검색어" />
                         <input type="hidden" name="category" id="category" value="">
+                        <input type="hidden" name="categoryName" id="categoryName" value="">
                     </div>
                 </form>
             </div>
