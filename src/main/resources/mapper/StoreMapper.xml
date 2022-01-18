@@ -263,6 +263,7 @@
             AND B.DELYN = 'N'
             AND M.DELYN = 'N'
             AND B.CATEGORY = #{category}
+            AND M.MARKET = #{market}
         <if test="keyword != null">
             AND A.SNAME LIKE CONCAT('%',#{keyword},'%')
         </if>
