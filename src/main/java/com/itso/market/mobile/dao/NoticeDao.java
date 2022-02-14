@@ -17,4 +17,7 @@ public interface NoticeDao {
     int updateNotice(NOTICE notice);
     int deleteNotice(NOTICE notice);
     List<NOTICE> getNoticeList();
+
+    NOTICE getPreNotice(NOTICE notice);
+    NOTICE getNextNotice(NOTICE notice);
 }

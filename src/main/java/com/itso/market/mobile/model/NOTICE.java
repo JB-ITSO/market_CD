@@ -13,6 +13,8 @@ import java.util.Date;
 @ToString
 public class NOTICE {
     private Integer notice;
+    private Integer pre_notice;
+    private Integer next_notice;
     private String title;
     private String contents;
     private String showYn;

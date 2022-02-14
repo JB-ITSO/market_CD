@@ -39,4 +39,24 @@
         WHERE DELYN = 'N'
         ORDER BY NOTICE DESC
     </select>
+
+    <select id="getPreNotice" resultType="com.itso.market.mobile.model.NOTICE">
+        SELECT NOTICE
+        FROM NOTICE
+        WHERE 1=1
+        AND DELYN = 'N'
+        AND NOTICE > #{notice}
+        ORDER BY NOTICE
+        LIMIT 0,1
+    </select>
+
+    <select id="getNextNotice" resultType="com.itso.market.mobile.model.NOTICE">
+        SELECT NOTICE
+        FROM NOTICE
+        WHERE 1=1
+        AND DELYN = 'N'
+        AND NOTICE <![CDATA[<]]> #{notice}
+        ORDER BY NOTICE DESC
+        LIMIT 0,1
+    </select>
 </mapper>

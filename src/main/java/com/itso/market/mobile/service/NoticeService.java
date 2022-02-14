@@ -18,7 +18,16 @@ public class NoticeService {
 
     // 회원 키값으로 조회
     public NOTICE getNotice(NOTICE notice) {
-        return noticeDao.getNotice(notice);
+        NOTICE result = noticeDao.getNotice(notice);
+        NOTICE pre_result = noticeDao.getPreNotice(notice);
+        NOTICE next_result = noticeDao.getNextNotice(notice);
+        if(pre_result != null){
+            result.setPre_notice(pre_result.getNotice());
+        }
+        if(next_result != null){
+            result.setNext_notice(next_result.getNotice());
+        }
+        return result;
     }
 
     // 회원 저장
