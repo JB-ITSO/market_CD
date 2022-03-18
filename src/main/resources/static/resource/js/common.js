@@ -1,7 +1,7 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
 // var ServerUrl = "http://localhost:7070";
-//var ServerUrl = "http://13.125.114.252:8080";
+// var ServerUrl = "http://13.125.114.252:8080";
  var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
@@ -2411,7 +2411,7 @@ function getCouponDetail(cid){
 
             if(result.BODY.ctype == 1){
                 ctype = "가격 할인";
-                disprice = result.BODY.stanprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"원 이상 " + result.BODY.disprice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원 할인"
+                disprice = result.BODY.stanprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") +"원 이상 " + result.BODY.disprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 할인"
             }
             else{
                 ctype = "배달비 무료";
