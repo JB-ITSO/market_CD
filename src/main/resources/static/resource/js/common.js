@@ -15,8 +15,8 @@ var shareImg;
 
 $( document ).ready(function() {
 
-// 현재시간 
-   currentDate = new Date(); 
+// 현재시간
+   currentDate = new Date();
    currentTime += currentDate.getHours();
    currentTime += currentDate.getMinutes();
 });
@@ -28,7 +28,7 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-// 영업 여부 
+// 영업 여부
 function isSopen(sthm, edhm){
 
     if( sthm <= currentTime && currentTime  < edhm ){
@@ -121,11 +121,11 @@ function getDistanceFromLatLonInKm(curLan, curLng, deslat, deslng) {
 }
 
 
-// ------------------------------- 
+// -------------------------------
 
 //            API Function
 
-// ------------------------------- 
+// -------------------------------
 
 // 공지사항 리스트
 function noticeList(){
@@ -147,16 +147,13 @@ function noticeList(){
 
                 index += 1;
 
-                var regdate = `${notice.regDate}`.substr(0,10);
+                var regdate = `${notice.regDate}`.substr(0,25);
                 noticeHtml += `
                             <li>
                                 <a href="/notice/noticeDetail?nid=${notice.notice}">
                                     <div class="item-wrap">
                                         <div class="tit-wrap">
                                             ${notice.title}
-                                        </div>
-                                        <div class="date-wrap">
-                                            `+regdate+`
                                         </div>
                                     </div>
                                 </a>
@@ -184,7 +181,7 @@ function noticeList(){
                     $("#marketNotice").html(MarketnoticeHtml);
                 }
             });
-            
+
         },
         error: function(result) {
             console.log(result);
@@ -211,7 +208,7 @@ function getNotice(nid){
 
             $('.title').text(result.BODY.title);
             $('.regdate').text(regdate);
-            $('.detail-body p').text(result.BODY.contents);
+            $('.detail-body p').html(result.BODY.contents);
 
         },
         error: function(result) {
@@ -238,7 +235,7 @@ function getMarketInfoWithLatLon(lat, lon){
 
             $('.go-market').text(result.BODY.name + " 시장");
             $('.go-market').attr("href", "/market/marketDetail?mkid="+result.BODY.market );
-            $('.go-event').attr("href", "/event/eventList?mkid="+result.BODY.market);
+            $('.go-event').attr("href", "/event/eventList?mkid=1");
 
 
             //추천가게 리스트
@@ -252,87 +249,14 @@ function getMarketInfoWithLatLon(lat, lon){
         }
     });
 }
-// 근처 시장 찾기
-function getMarketListBySearch(keyword, order, lat, lon){
 
-    var data = {
-
-        "keyword" : keyword,
-        "orderType" : order,
-        "lat" : lat,
-        "lon" : lon
-
-    };
-
-    $.ajax({
-        type: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST"
-        },
-        url: ServerUrl+"/main/getMarketListBySearch",
-        data: JSON.stringify(data),
-        success: function(result) {
-            console.log(result);
-            var storeHtml = '';
-
-            $(result.BODY).each(function(idx, market) {
-
-
-
-                var src = '/resource/image/common/noimg.png';
-                // if(store.files.length != 0){
-                //     if(store.files[0].type != 'L'){
-                //         src = ServerUrl+'/file/download?fileName='+store.files[0].path;
-                //     } else {
-                //         if(store.files.length != 1){
-                //             src = ServerUrl+'/file/download?fileName='+store.files[1].path;
-                //         }
-                //     }
-                // }
-
-
-                var distance = getDistanceFromLatLonInKm(lat, lon, `${market.lat}`, `${market.lon}`)
-                var event = ''
-
-                if(`${market.ecnt}` == 0){
-                    event = "진행중 이벤트가 없습니다."
-                }
-                else{
-                    event = "진행중 이벤트가 "+`${market.ecnt}`+"건 있습니다."
-                }
-
-                storeHtml += `
-                                <div class="list-item" onclick="location.href='/market/marketDetail?mkid=${market.market}'">
-                                    <div class="top-wrap">
-                                        <div class="img-wrap">
-                                            <a href="/market/marketDetail?mkid=${market.market}">
-                                                <img src="`+src+`" width="71" height="71">
-                                            </a>
-                                        </div>
-                                        <div class="info-wrap">
-                                           <p class="market-name">${market.name}</p>
-                                            <p class="market-text"><img src="../resource/image/common/location-img.png">${market.address}</p>
-                                            <p class="distance">(`+distance+` km)</p>
-                                        </div>
-                                    </div>
-                                    <p class="market-info">`+event+`</p>
-                                </div>            
-                                `;
-            });
-            $("#marketList").html(storeHtml);
-        },
-        error: function(result) {
-            console.log(result);
-        }
-    });
-}
 // 카테고리로 가게 찾기
 function getStoreListByCategory(category, keyword){
 
     var data = {
 
         "category" : category,
+        "market" : 1,
         "keyword" : keyword
 
     };
@@ -370,7 +294,7 @@ function getStoreListByCategory(category, keyword){
                     sInfo = `${store.sinfo}`;
                 }
 
-                var src = 'https://via.placeholder.com/98x98';
+                var src = '/resource/image/common/noimg.png';
                 if(store.files.length != 0){
                     if(store.files[0].type != 'L'){
                         src = ServerUrl+'/file/download?fileName='+store.files[0].path;
@@ -398,7 +322,7 @@ function getStoreListByCategory(category, keyword){
                                                 </a>
                                             </p>
                                             <span class="is-open `+isOpenClass+`">`+isOpen+`</span>
-                                            <span class="is-coupon">쿠폰</span>
+                                            <span class="is-coupon">혜택</span>
                                             <p class="rate-text"><img src="../resource/image/manager/rate-icon.png"><span class="rate">`+reviewAvg+`</span> (<span class="review">${store.tot}</span>)</p>
                                             <p class="market-text"><img src="../resource/image/common/location-img.png"><span>${store.mname}</span></p>
                                         </div>
@@ -521,7 +445,7 @@ function mainRecStoreList(mid){
                  var isOpen = '';
                  var sthm = `${recStore.sthm}`;
                  var ndhm = `${recStore.ndhm}`;
-                
+
                  var isOpenClass = '';
                  isOpen = isSopen(sthm, ndhm);
                  if(isOpen == '영업중'){
@@ -564,7 +488,7 @@ function mainRecStoreList(mid){
                                                 </a>
                                             </p>
                                             <span class="is-open `+isOpenClass+`">`+isOpen+`</span>
-                                            <span class="is-coupon">쿠폰</span>
+                                            <span class="is-coupon">혜택</span>
                                             <p class="rate-text"><img src="./resource/image/manager/rate-icon.png"><span class="rate">`+reviewAvg+`</span> (<span class="review">${recStore.tot}</span>)</p>
                                             <p class="market-text"><img src="./resource/image/common/location-img.png"><span>`+marketName+`</span></p>
                                         </div>
@@ -599,7 +523,7 @@ function mainPopStoreList( mid){
             var popStoreHtml = '';
 
             $(result.BODY).each(function(idx, popStore) {
-                
+
                 var sInfo = '';
                 var isOpen = '';
                 var sthm = `${popStore.sthm}`;
@@ -647,7 +571,7 @@ function mainPopStoreList( mid){
                                                 </a>
                                             </p>
                                             <span class="is-open `+isOpenClass+`">`+isOpen+`</span>
-                                            <span class="is-coupon">쿠폰</span>
+                                            <span class="is-coupon">혜택</span>
                                             <p class="rate-text"><img src="./resource/image/manager/rate-icon.png"><span class="rate">`+reviewAvg+`</span> (<span class="review">${popStore.tot}</span>)</p>
                                             <p class="market-text"><img src="./resource/image/common/location-img.png"><span>`+marketName+`</span></p>
                                         </div>
@@ -808,7 +732,7 @@ function getMarketDetail(mkid){
 
             $('.market-name').text(result.BODY.name);
 
-            $('.go-market').text(result.BODY.name + " 시장");
+            $('.go-market').text( "창동골목시장");
             $('.go-market').attr("href", "/market/marketDetail?mkid="+result.BODY.market );
             $('.go-event').attr("href", "/event/eventList?mkid="+result.BODY.market);
 
@@ -886,7 +810,7 @@ function getEventMarket(mkid){
 
             $('.market-name').text(result.BODY.name);
 
-            $('.go-market').text(result.BODY.name + " 시장");
+            $('.go-market').text("창동골목시장");
             $('.go-market').attr("href", "/market/marketDetail?mkid="+result.BODY.market );
             $('.go-event').attr("href", "/event/eventList?mkid="+result.BODY.market );
 
@@ -1163,9 +1087,9 @@ function getEvent(eid){
 
             $('.tit').text(result.BODY.title);
             $('.mname').text(result.BODY.mname);
-            $('.content').text(result.BODY.contents);
-            $('.bgndt').text(result.BODY.title.bgndt.substr(0,10).replace(/-/gi,"."));
-            $('.nddt').text(result.BODY.title.nddt.substr(0,10).replace(/-/gi,"."));
+            $('.content').html(result.BODY.contents);
+            $('.bgndt').text(result.BODY.bgndt.substr(0,10).replace(/-/gi,"."));
+            $('.nddt').text(result.BODY.nddt.substr(0,10).replace(/-/gi,"."));
         },
         error: function(result) {
             console.log(result);
@@ -1229,7 +1153,7 @@ function storeInfoUser(sid){
             address = result.BODY.address;
             title = result.BODY.sname;
             desc = result.BODY.sinfo;
-            
+
             $('.mname').text(result.BODY.mname);
             $('.is-open').text(isOpen);
             $('.is-open').addClass(isOpenClass);
@@ -1321,11 +1245,11 @@ function getMenuListUser(sid){
         },
         url: ServerUrl+"/main/getProductList",
         data: JSON.stringify(data),
-        success: function(result) { 
+        success: function(result) {
             var menuHtml = '';
             $(result.BODY).each(function(idx, menu) {
 
-                var src = 'https://via.placeholder.com/88x88';
+                var src = '/resource/image/common/noimg.png';
 
                 if(menu.files.length != 0){
                     src = ServerUrl+'/file/download?fileName='+menu.files[0].path;
@@ -1339,7 +1263,7 @@ function getMenuListUser(sid){
                                     </div>
                                     <div class="info-wrap">
                                         <p class="menu-name">${menu.mname}</p>
-                                        <span class="quote">${menu.pricedt} 시세</span>
+                                        <span class="quote">평균 시세</span>
                                         <p class="menu-price">${menu.price}원</p>
                                     </div>
                                 </div>
@@ -1400,6 +1324,13 @@ function getReviewListUser(sid){
             $("#reviewHtml").html(reviewHtml);
 
             total = sum/num;
+
+            if (isNaN(total)) { // 값이 없어서 NaN값이 나올 경우
+
+                total = 0;
+
+            }
+
             $('.total-rate-wrap .total').text(total.toFixed(1));
             $('.total-rate-wrap .review-num').text(num+' (0 new)');
 
@@ -1411,7 +1342,7 @@ function getReviewListUser(sid){
 }
 
 
-// 가게 쿠폰 리스트 (비로그인)
+// 가게 혜택 리스트 (비로그인)
 function getStoreCouponListMain(sid){
     var num ;
     var data = {"store":sid};
@@ -1432,24 +1363,28 @@ function getStoreCouponListMain(sid){
 
 
                 if(`${coupon.ctype}`=='1') {
-                    stanprice = parseInt(`${coupon.stanprice}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "이상 주문시";
-                    disprice = parseInt(`${coupon.disprice}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 할인";
+                    disprice = "할인 혜택";
+                    stanprice = `${coupon.cinfo}`;
                 }
-                else{
+                else if(`${coupon.ctype}`=='2') {
                     stanprice = "";
                     disprice = "배달비 무료";
                     style1 = "style='display:none;'";
                     style2 = "style='margin-top:0;'";
                 }
+                else{
+                    disprice = `${coupon.cname}`;
+                    stanprice = `${coupon.cinfo}`;
+                }
 
                 couponHtml += `
                            <div class="item">
                                 <div class="left-wrap">
-                                    <p class="stanprice" `+style1+`>`+stanprice+`</p>
                                     <p class="disprice" `+style2+'>'+disprice+`</p>
+                                    <p class="stanprice" `+style1+`>`+stanprice+`</p>
                                 </div>
                                 <div class="right-wrap">
-                                    <p class="issued-coupon">쿠폰 받기</p>
+                                    <p class="issued-coupon">혜택 받기</p>
                                 </div>
                             </div>
                             `;
@@ -1469,7 +1404,7 @@ function getStoreCouponListMain(sid){
         alert('로그인 후 이용가능합니다.');
     });
 }
-// 가게 쿠폰 리스트 (로그인)
+// 가게 혜택 리스트 (로그인)
 function getStoreCouponListUser(sid, mid){
     var num;
 
@@ -1495,15 +1430,20 @@ function getStoreCouponListUser(sid, mid){
                 num = idx;
 
                 if(`${coupon.ctype}`=='1') {
-                    stanprice = parseInt(`${coupon.stanprice}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "이상 주문시";
-                    disprice = parseInt(`${coupon.disprice}`).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 할인";
+                    disprice = "할인 혜택";
+                    stanprice = `${coupon.cinfo}`;
                 }
-                else{
+                else if(`${coupon.ctype}`=='2') {
                     stanprice = "";
                     disprice = "배달비 무료";
                     style1 = "style='display:none;'";
                     style2 = "style='margin-top:0;'";
                 }
+                else{
+                    disprice = `${coupon.cname}`;
+                    stanprice = `${coupon.cinfo}`;
+                }
+
                 cno = `${coupon.cno}`;
 
                 if(cno == null || cno == '' || cno == undefined || cno == "undefined" || cno == "null"){
@@ -1511,12 +1451,12 @@ function getStoreCouponListUser(sid, mid){
                     couponHtml += `
                            <div class="item">
                                 <div class="left-wrap">
-                                    <p class="stanprice" `+style1+`>`+stanprice+`</p>
                                     <p class="disprice" `+style2+'>'+disprice+`</p>
+                                    <p class="stanprice" `+style1+`>`+stanprice+`</p>
                                 </div>
                                 <div class="right-wrap">
                                    <input type="hidden" name="cid" value="${coupon.coupon}"/> 
-                                    <p class="">쿠폰받기</p>
+                                    <p class="">혜택받기</p>
                                 </div>
                             </div>
                             `;
@@ -1564,7 +1504,7 @@ function getStoreCouponListUser(sid, mid){
         }
     });
 }
-// 가게 쿠폰 발급받기
+// 가게 혜택 발급받기
 function issuedCoupon(mid, cid){
     var data = {
                     "member":mid,
@@ -1694,7 +1634,7 @@ function getUserDetail(mid){
 }
 
 
-// 쿠폰 보유 리스트 (사용자)
+// 혜택 보유 리스트 (사용자)
 function getCouponListUser(mid){
     var data = {"member":mid};
     $.ajax({
@@ -1721,7 +1661,7 @@ function getCouponListUser(mid){
                     }
                 }
 
-                //쿠폰 이름
+                //혜택 이름
                 var cname;
                 if(`${coupon.cname}`.length >= 15){
                     cname = `${coupon.cname}`.substr(0,15)+"...";
@@ -1729,7 +1669,7 @@ function getCouponListUser(mid){
                     cname = `${coupon.cname}`;
                 }
 
-                //쿠폰 설명
+                //혜택 설명
                 var cinfo;
                 if(`${coupon.cinfo}`.length >= 30){
                     cinfo = `${coupon.cinfo}`.substr(0,30)+"...";
@@ -1780,7 +1720,7 @@ function getCouponListUser(mid){
         }
     });
 }
-// 쿠폰 상세정보 (사용자)
+// 혜택 상세정보 (사용자)
 function getCouponDetailUser(cid, mid){
     var data = {
                     "coupon":cid,
@@ -1831,14 +1771,14 @@ function getCouponDetailUser(cid, mid){
             $('.coupon-info').text(result.BODY.cinfo);
             $('#coupon-num').text(result.BODY.cno);
             $('.deadline').text(Dresult+"일 남음");
-            $('#notice-text').text(result.BODY.cnote);
+            $('.cnote').text(result.BODY.cnote);
         },
         error: function(result) {
             console.log(result);
         }
     });
 }
-// 쿠폰 가게이름정보 (사용자)
+// 혜택 가게이름정보 (사용자)
 function couponStoreName(sid){
     // 가게정보
     var data = {"store":sid};
@@ -2146,7 +2086,7 @@ function getProductListManager(sid){
                 if(menu.files.length != 0){
                     src = ServerUrl+'/file/download?fileName='+`${menu.files[0].path}`;
                 } else {
-                    src = 'https://via.placeholder.com/88x88';
+                    var src = '/resource/image/common/noimg.png';
                 }
                 menuHtml += `
                             <div class="item" onclick="location.href='/manager/productDetail?sid='+${menu.store}+'&mid='+${menu.menu}">
@@ -2307,7 +2247,7 @@ function menuDelAdm(mid){
             },
             error: function(result) {
                 console.log(result);
-    
+
             }
         });
     }
@@ -2398,7 +2338,7 @@ function menuDelAdm(mid){
 //         }
 //     });
 // }
-// 쿠폰 보유 리스트 (관리자)
+// 혜택 보유 리스트 (관리자)
 function getCouponListManager(sid){
     var data = {"store":sid};
     $.ajax({
@@ -2414,7 +2354,7 @@ function getCouponListManager(sid){
             var sum = 0;
             $(result.BODY).each(function(idx, coupon) {
                 sum += 1;
-                //쿠폰 이름
+                //혜택 이름
                 var cname;
                 if(`${coupon.cname}`.length >= 15){
                     cname = `${coupon.cname}`.substr(0,15)+"...";
@@ -2422,7 +2362,7 @@ function getCouponListManager(sid){
                     cname = `${coupon.cname}`;
                 }
 
-                //쿠폰 설명
+                //혜택 설명
                 var cinfo;
                 if(`${coupon.cinfo}`.length >= 30){
                     cinfo = `${coupon.cinfo}`.substr(0,30)+"...";
@@ -2451,7 +2391,7 @@ function getCouponListManager(sid){
         }
     });
 }
-//가게 쿠폰 상세 정보 (관리자)
+//가게 혜택 상세 정보 (관리자)
 function getCouponDetail(cid){
     // 가게정보
     var data = {"coupon":cid};
@@ -2496,6 +2436,7 @@ function getCouponDetail(cid){
             $('input[name=nddt]').val(result.BODY.nddt);
             $('input[name=stanprice]').val(result.BODY.stanprice);
             $('input[name=disprice]').val(result.BODY.disprice);
+            $('.cnote').val(result.BODY.cnote);
 
         },
         error: function(result) {
@@ -2551,6 +2492,13 @@ function getReviewListManager(sid){
             $("#reviewHtml").html(reviewHtml);
 
             total = sum/num;
+
+            if (isNaN(total)) { // 값이 없어서 NaN값이 나올 경우
+
+                total = 0;
+
+            }
+
             $('.total-rate-wrap .total').text(total.toFixed(1));
             $('.total-rate-wrap .review-num').text(num+' (0 new)');
             $('#total').text(total.toFixed(1));

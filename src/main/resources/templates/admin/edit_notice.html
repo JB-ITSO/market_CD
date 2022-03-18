@@ -21,7 +21,7 @@
 <body>
 
     <script>
-        
+
         var cmd;
         var formChg;
         var msg;
@@ -83,7 +83,7 @@
                     <p class="input-label">제목</p>
                     <input type="text" name="title" value="" placeholder="제목을 입력하세요." />
                     <p class="input-label">내용</p>
-                    <textarea id="smartEditor" class="contents" name="contents" placeholder="내용을 입력하세요."></textarea> 
+                    <textarea id="smartEditor" class="contents" name="contents" placeholder="내용을 입력하세요."></textarea>
 
                     <div class="btn-wrap">
                         <input type="submit" value="확인" />
@@ -91,7 +91,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </section>
     </div>
 </body>
@@ -131,8 +131,8 @@
 
 	// $(function() {
 	// 	$("#savebutton").click(function() {
-	// 		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []); 
-			
+	// 		oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []);
+
 
 	// 		var selcatd = $("#selcatd > option:selected").val();
 	// 		var title = $("#title").val();
@@ -147,15 +147,15 @@
 	// 			$("#title").focus();
 	// 			return;
 	// 		}
-	// 		if(content == "" || content == null || content == '&nbsp;' || 
+	// 		if(content == "" || content == null || content == '&nbsp;' ||
 	// 				content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
 	// 			alert("본문을 작성해주세요.");
 	// 			oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
 	// 			return;
 	// 		} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
-			
+
 	// 		var result = confirm("발행 하시겠습니까?");
-			
+
 	// 		if(result){
 	// 			alert("발행 완료!");
 	// 			$("#noticeWriteForm").submit();
@@ -169,18 +169,18 @@
       //Form Validation
       function checkForm() {
         var title = $("input[name=title]").val();
-        var contents = $("input[name=contents]").val();
+
 
         if(title == ""){
             alert("제목을 입력해주세요.");
             $("input[name=title]").focus();
             return false;
         }
-        else if(contents == ""){
-            alert("내용을 입력해주세요.");
-            $(".input[name=contents]").focus();
-            return false;
-        }
+
+
+          var contents = document.querySelector('textarea');
+          contents = contents.value.replace(/(\n|\r\n)/g, '<br>');
+          document.querySelector("textarea").innerHTML = contents;
 
         var formJson = {};
 
@@ -200,6 +200,9 @@
                 if(result.BODY != null){
                     alert(msg);
                     if(cmd == 1){
+                        window.location.replace('/admin/noticeManage');
+                    }
+                    else{
                         window.location.replace('/admin/noticeManage');
                     }
                 }

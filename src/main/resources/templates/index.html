@@ -37,10 +37,6 @@
 
         $('.no-event').hide();
 
-        // default
-        getMarketInfoWithLatLon(36.78384569347095, 126.45479605325816);
-        //현재위치 반환
-        getCurrentLatLon();
 
         marketName = sessionStorage.getItem("marketName");
         marketID = sessionStorage.getItem("marketID");
@@ -92,13 +88,14 @@
         text-align: right;
         padding: 10px;
         border-top: 2px solid #da4821;
+        display: flex;
     }
     .search-container .search-wrap{
         text-align: right;
         display: flex;
         align-items: center;
         align-content: center;
-        width: 200px;
+        width: 160px;
         padding: 2px 10px;
         box-sizing: border-box;
         border-radius: 5px;
@@ -198,6 +195,9 @@
         float: right;
         font-size: 14px;
     }
+    .event-list-wrap{
+        margin-top:20px;
+    }
     .event-list-container img{
         width: 100%;
         margin-bottom: 15px;
@@ -216,15 +216,23 @@
 
     <!-- Content Section -->
     <section id="container">
-        <!--            <div class="notice-wrap">-->
-        <!--                &lt;!&ndash; Notice Rolling List &ndash;&gt;-->
-        <!--                <div class="notice-list-wrap">-->
-        <!--                    <ul class="notice-list" id="notice-list">-->
-        <!--                    </ul>-->
-        <!--                </div>-->
-        <!--            </div>-->
+<!--                    <div class="notice-wrap">-->
+<!--                        &lt;!&ndash; Notice Rolling List &ndash;&gt;-->
+<!--                        <div class="notice-list-wrap">-->
+<!--                            <ul class="notice-list" id="notice-list">-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
         <div class="search-container">
+            <div class="notice-wrap">
+                <i class="fas fa-bullhorn"></i>
+                <!-- Notice Rolling List -->
+                <div class="notice-list-wrap">
+                    <ul class="notice-list" id="notice-list">
+                    </ul>
+                </div>
+            </div>
             <form action="/market/searchMarket" method="get">
                 <div class="search-wrap">
                     <input type="text" name="key" value="" placeholder="" />
@@ -301,7 +309,7 @@
         <!--            </div>-->
         <div class="event-list-container">
             <span class="tit">진행중인 이벤트</span>
-            <a class="more go-event" href="">더보기 ></a>
+            <a class="more go-event" href="/event/eventList?mkid=1">더보기 ></a>
             <div class="event-list-wrap" id="eventList">
             </div>
         </div>
@@ -340,17 +348,17 @@
                     <div class="icon-wrap">
                         <img src="./resource/image/common/coupon-off.png">
                     </div>
-                    <p class="menu-name">쿠폰</p>
+                    <p class="menu-name">혜택</p>
                 </a>
             </div>
-            <div class="menu-item">
-                <a href="/market/searchMarket">
-                    <div class="icon-wrap">
-                        <img src="./resource/image/common/search-off.png">
-                    </div>
-                    <p class="menu-name">시장 찾기</p>
-                </a>
-            </div>
+<!--            <div class="menu-item">-->
+<!--                <a href="/market/searchMarket">-->
+<!--                    <div class="icon-wrap">-->
+<!--                        <img src="./resource/image/common/search-off.png">-->
+<!--                    </div>-->
+<!--                    <p class="menu-name">시장 찾기</p>-->
+<!--                </a>-->
+<!--            </div>-->
             <div class="menu-item">
                 <a href="/user/mypage">
                     <div class="icon-wrap">
@@ -412,27 +420,6 @@
 
 
         });
-
-        //현재 위치 반환
-        function getCurrentLatLon() {
-            if (navigator.geolocation) {
-
-                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    console.log(position);
-
-                    var latVal = position.coords.latitude, // 위도
-                        lonVal = position.coords.longitude; // 경도
-
-                    lat = latVal;
-                    lon = lonVal;
-                    getMarketInfoWithLatLon(lat, lon);
-
-                });
-
-            } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-            }
-        }
     </script>
 
 

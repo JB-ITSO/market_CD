@@ -33,7 +33,8 @@
 
         // 공지사항 리스트
         noticeList();
-
+        // 카테고리 리스트
+        mainCategoryList();
     });
 </script>
 
@@ -84,17 +85,8 @@
             <div class="filter-menu-wrap">
                 <div class="category-wrap">
                     <ul class="swiper-wrapper" id="categoryList">
-                        <li class="swiper-slide">
-                            <a>
-                                <span>농산물</span>    
-                            </a>
-                        </li>
-                        <li class="swiper-slide">
-                            <a>
-                                <span>의류 및 신발</span>    
-                            </a>
-                        </li>
                     </ul>
+                    <div class="swiper-scrollbar"></div>
                 </div>
             </div>
             <div class="market-detail-wrap">
@@ -180,7 +172,7 @@
                         <div class="icon-wrap">
                             <img src="../resource/image/common/coupon-off.png">
                         </div>
-                        <p class="menu-name">쿠폰</p>
+                        <p class="menu-name">혜택</p>
                     </a>
                 </div>
                 <!--                <div class="menu-item active">-->
@@ -210,7 +202,23 @@
                 // Notice Rolling List
                 $('.notice-list-wrap').vTicker({showItems: 4, pause: 1500});
 
-
+                categorySlide = new Swiper('.category-wrap', {
+                    slidesPerView: 4,
+                    slidesPerColumn: 2,
+                    spaceBetween: 10,
+                    observer: true,
+                    observeParents: true,
+                    scrollbar : {
+                        el : '.swiper-scrollbar',
+                        draggable: true,
+                    },
+                    breakpoints: {
+                        370:{
+                            slidesPerColumn: 3,
+                            slidesPerView: 2,
+                        },
+                    }
+                });
                     
             });
         </script>
