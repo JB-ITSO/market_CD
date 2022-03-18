@@ -384,6 +384,8 @@ input[type=submit]{
 }
 .tab-content-wrap .item .img-wrap{
     width:83px;
+    border: 1px solid #ececec;
+    border-radius: 5px;
 }
 .tab-content-wrap .item .img-wrap img{
     border-radius: 5px;

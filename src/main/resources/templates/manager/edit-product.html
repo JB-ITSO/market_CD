@@ -80,6 +80,7 @@
                     <input type="text" class="input-num" name="price" placeholder="" required/>  원
                     <p class="input-label">상품 이미지</p>
                     <div class="product-img-upload-wrap img-upload-wrap">
+                        <input type="hidden" name="img1" id="img1" value=" ">
                         <span class="add-img">+</span>
                     </div>
                     <input type="submit" value="상품 등록하기" />
@@ -95,6 +96,7 @@
 
         // 이미지 파일 추가 버튼
         $('.add-img').click(function(){
+            $(this).parents(".img-upload-wrap").find('#img1').remove();
             var idx = $('.img-upload-wrap').children().length;
             var fileadd = '<div class="img-wrap img-wrap'+idx+'">'
                 +'   <input class="img-file" style="display: none" type="file" accept="image/*" id="img1" name="simg'+idx+'" />'

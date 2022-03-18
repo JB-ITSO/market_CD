@@ -60,7 +60,7 @@
                 </div>
                 <div class="input-wrap">
                     <p class="font-nomal input-label">전화번호 *</p>
-                    <input type="text" name="phone" placeholder="전화번호를 입력해주세요" />
+                    <input type="text" name="phone" id="phoneNum" maxlength="13" placeholder="전화번호를 입력해주세요" />
                 </div>
                 <div class="input-wrap">
                     <p class="font-nomal input-label">이메일</p>
@@ -105,6 +105,43 @@
                 }
             }
         });
+
+        var autoHypenPhone = function(str){
+            str = str.replace(/[^0-9]/g, '');
+            var tmp = '';
+            if( str.length < 4){
+                return str;
+            }else if(str.length < 7){
+                tmp += str.substr(0, 3);
+                tmp += '-';
+                tmp += str.substr(3);
+                return tmp;
+            }else if(str.length < 11){
+                tmp += str.substr(0, 3);
+                tmp += '-';
+                tmp += str.substr(3, 3);
+                tmp += '-';
+                tmp += str.substr(6);
+                return tmp;
+            }else{
+                tmp += str.substr(0, 3);
+                tmp += '-';
+                tmp += str.substr(3, 4);
+                tmp += '-';
+                tmp += str.substr(7);
+                return tmp;
+            }
+
+            return str;
+        }
+
+
+        var phoneNum = document.getElementById('phoneNum');
+
+        phoneNum.onkeyup = function(){
+            console.log(this.value);
+            this.value = autoHypenPhone( this.value ) ;
+        }
 
         // 다음 주소검색 API
         $('.address-search').click(function(){

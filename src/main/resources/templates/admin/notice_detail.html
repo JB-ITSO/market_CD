@@ -62,9 +62,9 @@
                 <div class="notice-header">
                     <p class="subject title"></p>
                     <span class="regdate">2021.01.01</span>
-                </div>                   
-                <div class="notice-body contents">
-                    내용내용
+                </div>
+                <div class="notice-body desc">
+
                 </div>
                 <div class="notice-footer">
                     <a class="modify">수정</a>
@@ -72,7 +72,7 @@
                     <a class="go-back" href="javascript:window.history.back();">목록으로</a>
                 </div>
             </div>
-            
+
         </section>
     </div>
 </body>
@@ -108,7 +108,7 @@
             url: ServerUrl+"/admin/deleteNotice",
             data: JSON.stringify(data),
             success: function(result) {
-                console.log(result);                            
+                console.log(result);
                 alert('삭제되었습니다.');
                 window.location.replace('/admin/notice_management.html');
             },

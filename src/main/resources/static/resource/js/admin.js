@@ -39,10 +39,10 @@ function memberList(){
                         break;
                     case 'ROLE_STORE':
                         role = '가게 회원';
-                        break;    
+                        break;
                 }
                 regdate = regdate.substr(0,10);
-              
+
                 if(`${member.role}` != 'ROLE_ADMIN'){
                     memberHtml += `
                                 <tr class="list-item" onClick="location.href='/admin/memberDetail?mid=${member.member}&cmd=2'">
@@ -106,10 +106,10 @@ function memberSearchList(role, keyword){
                         break;
                     case 'ROLE_STORE':
                         role = '가게 회원';
-                        break;    
+                        break;
                 }
                 regdate = regdate.substr(0,10);
-              
+
                 if(`${member.role}` != 'ROLE_ADMIN'){
                     memberHtml += `
                                 <tr class="list-item" onClick="location.href='/admin/memberDetail?mid=${member.member}&cmd=2'">
@@ -336,7 +336,7 @@ function storeList(){
 
                 var regdate = `${store.regDate}`;
                 regdate = regdate.substr(0,10);
-              
+
                 var recYn = `${store.recYn}`;
                 var popYn = `${store.popYn}`;
                 var recSelect = '';
@@ -420,7 +420,7 @@ function marketSearchList(searchType, keyword){
 
                 var regdate = `${store.regDate}`;
                 regdate = regdate.substr(0,10);
-              
+
 
                 storeHtml += `
                                 <tr class="list-item" onClick="location.href='/admin/marketDetail?sid=${store.store}&cmd=2'">
@@ -586,7 +586,7 @@ function getStore(sid){
 
                 $('input[name=sname]').val(result.BODY.sname);
                 $('input[name=mname]').val(result.BODY.mname);
-            
+
                 $(result.BODY.categories).each(function(idx, category) {
 
                         $('#category').val(`${category.category}`).prop("selected", true);
@@ -594,7 +594,7 @@ function getStore(sid){
                 });
                 $(result.BODY.workdays).each(function(idx, workday) {
 
-                    $('.workdays'+`${workday.type}`).prop("checked", true);  
+                    $('.workdays'+`${workday.type}`).prop("checked", true);
                 });
 
                 $('input[name=sthm]').val(result.BODY.sthm);
@@ -803,7 +803,9 @@ function getEvent(eid){
             $('input[name=nddt]').val(result.BODY.nddt);
 
             $('input[name=title]').val(result.BODY.title);
-            $('.contents').text(result.BODY.contents);
+
+
+            $('.contents').text(result.BODY.contents.split('<br>').join("\r\n"));
 
             var imgHtml = '';
             if(result.BODY.files.length != 0){
@@ -889,7 +891,7 @@ function noticeList(){
 
                 var regdate = `${notice.regDate}`;
                 regdate = regdate.substr(0,10);
-              
+
 
                 noticeHtml += `
                                 <tr class="list-item" onClick="location.href='/admin/noticeDetail?nid=${notice.notice}'">
@@ -934,11 +936,11 @@ function getNotice(nid){
                 regdate = regdate.substr(0,10);
 
                 $('input[name=title]').val(result.BODY.title);
-                $('input[name=contents]').val(result.BODY.contents);
 
                 $('.title').text(result.BODY.title);
                 $('.regdate').text(regdate);
-                $('.contents').text(result.BODY.contents);
+                $('.contents').text(result.BODY.contents.split('<br>').join("\r\n"));
+                $('.desc').html(result.BODY.contents);
                 $('.modify').prop('href', '/admin/noticeEdit?nid='+result.BODY.notice+'&cmd=2');
 
             },
@@ -968,7 +970,7 @@ function categoryList(){
 
                 var regdate = `${category.regDate}`;
                 regdate = regdate.substr(0,10);
-              
+
 
                 categoryHtml += `
                                 <tr class="list-item" onClick="location.href='/admin/categoryDetail?cid=${category.category}&cmd=2'">

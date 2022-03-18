@@ -57,7 +57,7 @@
 
             $(".edit-btn").attr("href", "/store/edit?sid="+ sid);
 
-            // 쿠폰
+            // 혜택
             if(mid != ''){
                 getStoreCouponListUser(sid, mid);
             }
@@ -106,14 +106,14 @@
                         <p class="category font-small"><span class="mname">시장 이름</span> / <span class="categoryType">카테고리</span></p>
                         <span class="market-name font-big">가게이름</span>
                         <span class="is-open">영업중</span>
-                        <span class="is-coupon">쿠폰</span>
+                        <span class="is-coupon">혜택</span>
                         <p class="time font-nomal">영업시간 <span class="sthm"></span> ~ <span class="ndhm"></span></p>
                         <p class="font-nomal">휴무 정보 <span class="holiday"></span></p>
                         <div class="contact-wrap">
                             <a class="call-btn"><img src="../resource/image/store/call-icon.png">전화 문의</a>
                             <a class="kakao" href=""><img src="../resource/image/store/kakao-icon.png">카카오톡 문의</a>
                         </div>
-                        <a class="coupon-btn"><img src="../resource/image/store/coupon-icon.png"> 쿠폰 받기</a>
+                        <a class="coupon-btn"><img src="../resource/image/store/coupon-icon.png"> 혜택 받기</a>
                     </div>
                     <!-- Tab Menu -->
                     <div class="tab-wrap">
@@ -182,7 +182,7 @@
                             <div class="icon-wrap">
                                 <img src="../resource/image/common/coupon-off.png">
                             </div>
-                            <p class="menu-name">쿠폰</p>
+                            <p class="menu-name">혜택</p>
                         </a>
                     </div>
 <!--                    <div class="menu-item">-->
@@ -216,15 +216,15 @@
             </div>
             <!-- Coupon Modal -->
             <div class="coupon-modal-container">
-                <p class="title">쿠폰 목록</p>
+                <p class="title">혜택 목록</p>
                 <div class="coupon-list-wrap" id="couponList">
-                   등록된 쿠폰이 없습니다.
+                   등록된 혜택이 없습니다.
                 </div>
                 <div class="confirm-wrap">
                     <span class="modal-close">취소</span>
                 </div>
             </div>
-            <div class="coupon-issued-suc">쿠폰 받기가 완료되었습니다.</div>
+            <div class="coupon-issued-suc">혜택 받기가 완료되었습니다.</div>
 
         </section>
     </div>

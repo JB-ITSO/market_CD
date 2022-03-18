@@ -75,6 +75,45 @@
     font-weight: 500;
     height: 100%;
 }
+/* Filter Menu */
+.filter-menu-wrap{
+    width: 100%;
+    background-color: #fff;
+    padding: 0px 15px 15px;
+    box-sizing: border-box;
+    display: flex;
+    overflow: hidden;
+}
+.filter-menu-wrap .category-wrap{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 10px 20px;
+}
+.filter-menu-wrap .category-wrap .swiper-slide{
+    height: 72px;
+    border-radius: 5px;
+}
+.filter-menu-wrap .swiper-scrollbar-drag{
+    background: #da4821;
+}
+.filter-menu-wrap .category-wrap .swiper-slide a{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 2px solid #da4821;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 500;
+}
+.filter-menu-wrap .category-wrap .swiper-slide span{
+    font-weight: 700;
+}
 /* Main Slide Banner */
 .slide-banner-wrap{
     width: 100%;
@@ -120,40 +159,6 @@
 }
 
 
-
-/* Filter Menu */
-.filter-menu-wrap{
-    width: 100%;
-    background-color: #fff;
-    padding: 15px 15px;
-    box-sizing: border-box;
-    display: flex;
-    overflow: hidden;
-}
-.filter-menu-wrap .category-wrap{
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    padding: 10px;
-}
-.filter-menu-wrap .category-wrap .swiper-slide{
-    height: 72px;
-    border-radius: 5px;
-}
-.filter-menu-wrap .category-wrap .swiper-slide a{
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    border: 1px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 20px;
-    font-weight: 500;
-}
 
 .market-detail-wrap{
     padding:30px 20px 0;
@@ -245,7 +250,7 @@
 /* Market List */
 .market-list-wrap{
     margin-top: 25px;
-    padding: 50px 15px 0;
+    padding: 0px 15px 0;
     box-sizing: border-box;
     position: relative;
 }

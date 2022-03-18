@@ -131,7 +131,7 @@
 
                     <div class="btn-area">
                         <input type="submit" value="확인" />
-                        <a href="/admin/eventManager">취소</a>
+                        <a href="/admin/eventManage">취소</a>
                     </div>
                 </form>
             </div>
@@ -193,6 +193,11 @@
     //Form Validation
     function checkForm(fileList) {
 
+        var contents = document.querySelector('textarea');
+        contents = contents.value.replace(/(\n|\r\n)/g, '<br>');
+        document.querySelector("textarea").innerHTML = contents;
+
+
         var formJson = {};
 
         $.map($("form[name=event-form]").serializeArray(), function(n, i){
@@ -243,7 +248,7 @@
                 },
                 error: function (e) {
                     console.log("ERROR : ", e);
-                    alert("메뉴정보를저장하지 못했습니다. 관리자에게 문의하십시오.")
+                    alert("이벤트를저장하지 못했습니다. 관리자에게 문의하십시오.")
                 }
             });
         }
