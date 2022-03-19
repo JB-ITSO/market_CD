@@ -93,6 +93,10 @@ public class PageController {
         model.addAttribute("role", role);
         return "login/register";
     }
+    @GetMapping("/addrSearch")
+    public String addrSearch() {
+        return "login/addr-search";
+    }
 
     @GetMapping("/inquiry")
     public String inquiry() {

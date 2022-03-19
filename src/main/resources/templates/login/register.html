@@ -145,14 +145,20 @@
 
         // 다음 주소검색 API
         $('.address-search').click(function(){
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    document.getElementById("address").value = data.address; // 주소 넣기
-                }
-            }).open();
+            var openWin;
+
+                // window.name = "부모창 이름";
+                window.name = "parentForm";
+                // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+                openWin = window.open("/addrSearch",
+                    "childForm", "width=500, height=500, resizable = no, scrollbars = no");
 
         });
     });
+
+    function setChildText(){
+        openWin.document.getElementById("cInput").value = document.getElementById("pInput").value;
+    }
 
     //Form Validation
     function checkForm() {
@@ -291,3 +297,8 @@
 </script>
 </body>
 </html>
+
+
+
+
+
