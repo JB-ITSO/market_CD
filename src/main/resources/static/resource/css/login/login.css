@@ -1,4 +1,8 @@
 /* Common Css */
+
+#__daum__layer_1{
+    width: 100% !important;
+}
 #container{
     padding:54px 20px 24px;
     box-sizing: border-box;
@@ -60,7 +64,7 @@ input[type=text]::placeholder,input[type=password]::placeholder{
 }
 .pw-wrap{
     position: relative;
-     
+
 }
 .pw-wrap .pw-view{
     position: absolute;
