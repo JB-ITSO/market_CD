@@ -70,12 +70,14 @@
                     <p class="font-nomal input-label ">주소 *</p>
                     <div class="btn-input-container">
                         <div class="btn-input-wrap">
-                            <input type="text" name="address" id="address" placeholder="주소를 입력해주세요." />
+                            <input type="text" name="address" id="address" placeholder="주소를 입력해주세요." readonly/>
                         </div>
                         <div class="inquiry-wrap">
-                            <a class="inquiry-btn address-search">주소 검색</a>
+                            <a class="inquiry-btn address-search" onClick="openDaumZipAddress();" >주소 검색</a>
                         </div>
                     </div>
+
+                    <div id="addrSearch" style="display:none;border:1px solid #DDDDDD;margin-top:20px"></div>
                 </div>
 
                 <input class="register-submit mt-short" type="submit" value="다음"/>
@@ -90,15 +92,15 @@
 <script type="text/javascript">
     $(function () {
         // 비밀 번호 재입력 일치 체크
-        $("#pw2").on("change keyup paste", function() {
+        $("#pw2").on("change keyup paste", function () {
             var pwd1 = $("#pw1").val();
             var pwd2 = $("#pw2").val();
-            if(pwd1 != "" || pwd2 != ""){
-                if(pwd1 == pwd2){
+            if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
                     $(".pw-success").show();
                     $(".pw-fail").hide();
                     $('.pwCheck').val(1);
-                }else{
+                } else {
                     $(".pw-success").hide();
                     $(".pw-fail").show();
                     $('.pwCheck').val(0);
@@ -106,24 +108,24 @@
             }
         });
 
-        var autoHypenPhone = function(str){
+        var autoHypenPhone = function (str) {
             str = str.replace(/[^0-9]/g, '');
             var tmp = '';
-            if( str.length < 4){
+            if (str.length < 4) {
                 return str;
-            }else if(str.length < 7){
+            } else if (str.length < 7) {
                 tmp += str.substr(0, 3);
                 tmp += '-';
                 tmp += str.substr(3);
                 return tmp;
-            }else if(str.length < 11){
+            } else if (str.length < 11) {
                 tmp += str.substr(0, 3);
                 tmp += '-';
                 tmp += str.substr(3, 3);
                 tmp += '-';
                 tmp += str.substr(6);
                 return tmp;
-            }else{
+            } else {
                 tmp += str.substr(0, 3);
                 tmp += '-';
                 tmp += str.substr(3, 4);
@@ -138,27 +140,66 @@
 
         var phoneNum = document.getElementById('phoneNum');
 
-        phoneNum.onkeyup = function(){
+        phoneNum.onkeyup = function () {
             console.log(this.value);
-            this.value = autoHypenPhone( this.value ) ;
+            this.value = autoHypenPhone(this.value);
         }
 
         // 다음 주소검색 API
-        $('.address-search').click(function(){
-            var openWin;
+        $(".inquiry-btn").click(function(){
 
-                // window.name = "부모창 이름";
-                window.name = "parentForm";
-                // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-                openWin = window.open("/addrSearch",
-                    "childForm", "width=500, height=500, resizable = no, scrollbars = no");
+            // 우편번호 찾기 화면을 넣을 element를 지정
+            var element_wrap = document.getElementById("addrSearch");
+
+            // wrap 레이어가 off된 상태라면 다음 우편번호 레이어를 open 한다.
+            if ($("#addrSearch").css("display") == "none") {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        $("#zonecode").val(data.zonecode);
+                        $("#address").val(data.address);
+                        $("#address_detail").focus();
+                        console.log(data);
+                    }
+
+                    // 사용자가 값을 주소를 선택해서 레이어를 닫을 경우
+                    // 다음 주소록 레이어를 완전히 종료 시킨다.
+                    , onclose: function (state) {
+                        if (state === "COMPLETE_CLOSE") {
+
+                            // 콜백함수를 실행하여 슬라이드 업 기능이 실행 완료후 작업을 진행한다.
+                            offDaumZipAddress(function () {
+                                element_wrap.style.display = "none";
+                            });
+                        }
+                    }
+                }).embed(element_wrap);
+
+                // 슬라이드 다운 기능을 이용해 레이어 창을 오픈한다.
+                $("#addrSearch").slideDown();
+            }
+
+            // warp 레이어가 open된 상태라면 다음 우편번호 레이어를 off 상태로 변경한다.
+            else {
+
+                // 콜백함수를 실행하여 슬라이드 업 기능이 실행 완료후 작업을 진행한다.
+                offDaumZipAddress(function () {
+                    element_wrap.style.display = "none";
+                    return false;
+                });
+            }
 
         });
-    });
 
-    function setChildText(){
-        openWin.document.getElementById("cInput").value = document.getElementById("pInput").value;
-    }
+
+
+        function offDaumZipAddress() {
+
+            // 슬라이드 업 기능을 이용해 레이어 창을 닫는다.
+            $("#addrSearch").slideUp();
+
+        }
+
+    });
 
     //Form Validation
     function checkForm() {
