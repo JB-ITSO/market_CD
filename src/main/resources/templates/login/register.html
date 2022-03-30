@@ -208,8 +208,6 @@
         var pw = $("input[name=userpw]").val();
         var pwCheck = $('.pwCheck').val();
         var name = $("input[name=name]").val();
-        var phone = $("input[name=phone]").val();
-        var address = $("input[name=address]").val();
 
         if(userid == ""){
             alert("아이디를 입력해주세요.");
@@ -231,16 +229,7 @@
             $("#pw2").focus();
             return false;
         }
-        else if(phone == ""){
-            alert("전화번호를 입력해주세요.");
-            $("input[name=phone]").focus();
-            return false;
-        }
-        else if(address == ""){
-            alert("전화번호를 입력해주세요.");
-            $("input[name=address]").focus();
-            return false;
-        }
+
         var formJson = {};
 
         $.map($("form[name=register-form]").serializeArray(), function(n, i){
