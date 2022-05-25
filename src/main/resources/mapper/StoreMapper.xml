@@ -272,6 +272,8 @@
 
     <select id="getStoreSearchList" resultType="com.itso.market.mobile.model.STORE">
         SELECT DISTINCT A.*
+        , (SELECT COUNT(*) FROM REVIEW WHERE STORE = A.STORE) AS TOT
+        , (SELECT IFNULL(AVG(RATE),0) FROM REVIEW WHERE STORE = A.STORE) AS AVG
         FROM STORE A
             LEFT JOIN SCATEGORY B ON A.STORE = B.STORE
             LEFT JOIN CATEGORY C ON B.CATEGORY = C.CATEGORY

@@ -369,4 +369,18 @@ public class MainController {
             return new ResponseOverlays(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "GET_EVENT_LIST_FAIL", null);
         }
     }
+
+    @RequestMapping(value="/getStoreListBySearch", method= RequestMethod.POST)
+    public ResponseOverlays getStoreListBySearch(@RequestBody @Validated SEARCH search) {
+        try {
+            List<STORE> result = storeService.getStoreSearchList(search);
+            if(result != null){
+                return new ResponseOverlays(HttpServletResponse.SC_OK, "GET_MARKET_LIST_SUCCESS", result);
+            } else {
+                return new ResponseOverlays(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "GET_MARKET_LIST_NULL", null);
+            }
+        } catch (Exception e){
+            return new ResponseOverlays(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "GET_MARKET_LIST_FAIL", null);
+        }
+    }
 }
