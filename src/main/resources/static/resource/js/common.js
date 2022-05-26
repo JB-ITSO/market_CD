@@ -1,8 +1,8 @@
 //서버 주소 변수
 //var ServerUrl = "http://13.125.114.252";
-var ServerUrl = "http://localhost:7070";
+// var ServerUrl = "http://localhost:7070";
 // var ServerUrl = "http://13.125.114.252:8080";
-//  var ServerUrl = "https://changdongmarket.com:8080";
+var ServerUrl = "https://changdongmarket.com:8080";
 var currentDate = '';
 var currentTime = '';
 var firstCategory;
@@ -253,8 +253,7 @@ function getMarketInfoWithLatLon(lat, lon){
 function getStoreListBySearch(keyword){
 
     var data = {
-
-        "searchType" : "S",
+        searchType : "S",
         "keyword" : keyword
 
     };
@@ -292,7 +291,7 @@ function getStoreListBySearch(keyword){
                     sInfo = `${store.sinfo}`;
                 }
 
-                var src = 'https://via.placeholder.com/98x98';
+                var src = '/resource/image/common/noimg.png';
                 if(store.files.length != 0){
                     if(store.files[0].type != 'L'){
                         src = ServerUrl+'/file/download?fileName='+store.files[0].path;
@@ -322,7 +321,6 @@ function getStoreListBySearch(keyword){
                                             <span class="is-open `+isOpenClass+`">`+isOpen+`</span>
                                             <span class="is-coupon">쿠폰</span>
                                             <p class="rate-text"><img src="../resource/image/manager/rate-icon.png"><span class="rate">`+reviewAvg+`</span> (<span class="review">${store.tot}</span>)</p>
-                                            <p class="market-text"><img src="../resource/image/common/location-img.png"><span>${store.mname}</span></p>
                                         </div>
                                     </div>
                                     <p class="market-info">`+sInfo+`</p>
