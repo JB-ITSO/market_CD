@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>창동시장</title>
+    <title>창동골목시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="../resource/css/admin/common.css" />
@@ -44,7 +44,7 @@
 
     <div id="wrap">
         <div class="gnb-container">
-            <p class="site-name">창동시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
+            <p class="site-name">창동골목시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
             <div class="gnb-wrap">
                 <div class="menu-item active">
                     <a class="member-menu" href="/admin/memberManage"><i class="far fa-user"></i>회원 관리</a>
@@ -142,10 +142,10 @@
                                 </li>
                             </ul>
                         </div> -->
-                    </form>                   
+                    </form>
                 </div>
             </div>
-            
+
         </section>
     </div>
 </body>
@@ -180,14 +180,14 @@
         var formJson = {};
 
         var con = confirm("선택하신 회원정보를 삭제하시겠습니까?");
-			
+
         if(con){
 
             var chk_arr = $("input[name='chk[]']");
 
             for( var i=0; i<chk_arr.length; i++ ) {
                 if( chk_arr[i].checked == true ) {
-                    
+
                     var data = {member : chk_arr[i].value};
                     $.ajax({
                         type: "POST",
@@ -198,7 +198,7 @@
                         url: ServerUrl+"/admin/deleteMember",
                         data: JSON.stringify(data),
                         success: function(result) {
-                            console.log(result);                            
+                            console.log(result);
                         },
                         error: function(result) {
                             console.log(result);

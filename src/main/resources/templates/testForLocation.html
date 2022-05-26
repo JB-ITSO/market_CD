@@ -1,66 +1,198 @@
-<!DOCTYPE html>
-<html>
+<html lang="ko"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>주소로 장소 표시하기</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf45249452b9fe157c9b01c87080f2be&libraries=services"></script>
-    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="./resource/js/jquery-1.12.4.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+    <link href="//t1.daumcdn.net/postcode/resource/images/favicon.ico" rel="shortcut icon">
+
+    <title>Daum Postcode Service</title>
+    <link rel="stylesheet" href="//t1.daumcdn.net/postcode/cssjs/service/1639620084187/service.v2.min.css">
+
+    <style></style>
 </head>
-<body>
-<p style="margin-top:-12px">
-    <em class="link">
-        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-        </a>
-    </em>
-</p>
-<div id="map" style="width:100%;height:350px;"></div>
-<a href="javascript:void(0);" onclick="getLatLon()">위경도 찾기</a>
-<a href="javascript:void(0);" onclick="getCurrentLatLon()">현재위치 찾기</a>
-<p>LAT : <h2 id="lat"></h2></p>
-<p>LON : <h2 id="lon"></h2></p>
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
+<body style="">
 
-    // 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
+<div style="" class="daum_popup focus_content animation use_suggest mode_view" data-mode="view" data-intsh="true"
+     data-ctx="" data-plrgno="" data-plrgtimer="" data-msi="10" data-whas="500" data-submitmode="on">
+    <div class="popup_post_type1">
+        <div class="popup_head animate_on" style="height: 47px; overflow: visible;">
+            <h1 class="screen_out">우편번호 검색</h1>
+            <form action="https://postcode.map.daum.net/search" id="searchForm" class="form_search" target="_self"
+                  method="GET">
+                <fieldset class="fld_inside">
+                    <legend class="screen_out">우편번호 검색 입력폼</legend>
+                    <div class="post_search">
+                        <label for="region_name" class="screen_out">검색할 도로명/지번주소를 입력, 예시) 판교역로 235, 분당 주공, 삼평동
+                            681</label>
+                        <div class="wrap_tf_keyword">
+                            <input type="text" id="region_name" class="tf_keyword" name="region_name" value="판교역로 235"
+                                   autocomplete="off">
+                        </div>
+                        <input type="hidden" name="cq" id="cQuery" value="판교역로 235">
+                        <input type="hidden" name="cpage" id="cPage" value="1">
+                        <input type="hidden" name="origin" value="https://postcode.map.daum.net">
+                        <input type="hidden" name="isp" id="isP" value=""> <input type="hidden" name="isgr" id="isGR"
+                                                                                  value=""> <input type="hidden"
+                                                                                                   name="isgj" id="isGJ"
+                                                                                                   value=""> <input
+                            type="hidden" name="ongr" id="onGR" value="N"> <input type="hidden" name="ongj" id="onGJ"
+                                                                                  value="N"> <input type="hidden"
+                                                                                                    name="regionid"
+                                                                                                    id="regionId"
+                                                                                                    value="">
+                        <input type="hidden" name="regionname" id="regionName" value="">
+                        <input type="hidden" name="roadcode" id="roadCode" value="">
+                        <input type="hidden" name="roadname" id="roadName" value="">
+                        <input type="hidden" name="banner" value="on"> <input type="hidden" name="ubl" value="on">
+                        <input type="hidden" name="indaum" value="off"> <input type="hidden" name="vt" value="layer">
+                        <input type="hidden" name="amr" value="on"> <input type="hidden" name="amj" value="on"> <input
+                            type="hidden" name="ani" value="on"> <input type="hidden" name="mode" value="view"> <input
+                            type="hidden" name="sd" value="on"> <input type="hidden" name="fi" value="off"> <input
+                            type="hidden" name="fc" value="on"> <input type="hidden" name="hmb" value="off"> <input
+                            type="hidden" name="heb" value="off"> <input type="hidden" name="asea" value="off"> <input
+                            type="hidden" name="smh" value="off"> <input type="hidden" name="zo" value="on"> <input
+                            type="hidden" name="theme" value="">
+                        <input type="hidden" name="bit" value="">
+                        <input type="hidden" name="sit" value="">
+                        <input type="hidden" name="sgit" value="">
+                        <input type="hidden" name="sbit" value="">
+                        <input type="hidden" name="pit" value="">
+                        <input type="hidden" name="mit" value="">
+                        <input type="hidden" name="lcit" value="">
+                        <input type="hidden" name="plrg" value=""> <input type="hidden" name="plrgt" value="1.5"> <input
+                            type="hidden" name="us" value="on"> <input type="hidden" name="msi" value="10"> <input
+                            type="hidden" name="ahs" value="off"> <input type="hidden" name="whas" value="500"> <input
+                            type="hidden" name="zn" value="Y">
+                        <input type="hidden" name="sm" value="on"> <input type="hidden" name="CWinWidth"
+                                                                          id="constWindowWidth" value="400">
+                        <input type="hidden" name="sptype" id="spType" value=""> <input type="hidden" name="sporgq"
+                                                                                        id="spOrgQuery" value=""> <input
+                            type="hidden" name="fullpath" id="fullPath" value="/guide">
+                        <input type="hidden" name="a51" id="a51" value="off">
+                        <button type="button" class="btn_clear" style="display: inline-block;"><span
+                                class="img_post">취소</span></button>
+                        <button type="button" class="btn_search"><span class="img_post">검색</span></button>
+                        <span class="placeholder">예) 판교역로 235, 분당 주공, 삼평동 681</span></div>
+                </fieldset>
+            </form>
+            <div id="postCodeSuggestLayer" class="suggest_search">
+                <div class="suggestBox box_sub" style="display: none;">
+                    <div class="baseBox bg"></div>
+                </div>
+            </div>
+            <label for="focusContent" class="screen_out">판교역로 235의 검색 결과 입니다. 아래쪽으로 스크롤하세요.</label>
+            <input type="button" class="focus_content_style" id="focusContent">
 
-    function getLatLon() {
-        geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
 
-            // 정상적으로 검색이 완료됐으면
-            if (status === kakao.maps.services.Status.OK) {
-                console.log(result[0]);
-                $("#lat").html(result[0].y);
-                $("#lon").html(result[0].x);
-            }
-        });
-    }
+        </div>
+        <div class="popup_body animate_on">
 
-    function getCurrentLatLon() {
-        if (navigator.geolocation) {
 
-            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-            navigator.geolocation.getCurrentPosition(function(position) {
-                console.log(position);
+            <h2 class="screen_out">검색 결과 보기</h2>
+            <ul class="list_post" data-totalcount="1" data-listsize="1">
 
-                var lat = position.coords.latitude, // 위도
-                    lon = position.coords.longitude; // 경도
-                $("#lat").html(lat);
-                $("#lon").html(lon);
-            });
 
-        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-        }
-    }
+                <li class="list_post_item " data-index="1" data-addr_type="R" data-postcode="" data-postcode_seq=""
+                    data-zonecode="13494" data-addr="경기 성남시 분당구 판교역로 235"
+                    data-addr_eng="235, Pangyoyeok-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea" data-sido="경기"
+                    data-sido_eng="Gyeonggi-do" data-sigungu="성남시 분당구" data-sigungu_eng="Bundang-gu Seongnam-si"
+                    data-sigungu_code="41135" data-roadname_code="3179025" data-roadname="판교역로"
+                    data-roadname_eng="Pangyoyeok-ro" data-bcode="4113510900" data-bname="삼평동"
+                    data-bname_eng="Sampyeong-dong" data-bname1="" data-bname1_eng="" data-bname2="삼평동"
+                    data-bname2_eng="Sampyeong-dong" data-hname="" data-building_name="에이치스퀘어 엔동"
+                    data-building_code="4113510900106810000000001" data-house_type="N" data-is_multi_building="false"
+                    style="transition-delay: 0s;">
+                    <div class="bundle_view" data-addr="경기 성남시 분당구 판교역로 235" data-addr_type="R" data-click_type="main">
+                        <button class="link_post link_english"><span class="screen_out">주소 </span><span class="txt_eng">영문보기</span><span
+                                class="txt_kor">한글보기</span></button>
+                        <span class="txt_bar"></span>
+                        <button class="link_post link_btn_map" title="새창열림"><span class="screen_out">도로명 주소(경기 성남시 분당구 판교역로 235)를 </span>지도<span
+                                class="screen_out">에서 확인하기</span></button>
+                    </div>
+                    <em class="screen_out">기초구역번호(새 우편번호)</em>
+                    <span class="txt_postcode">13494</span>
+                    <em class="screen_out">아래에서 주소 선택</em>
+                    <dl class="list_address fold_1">
+                        <dt class="tit_address">도로명</dt>
+                        <dd class="info_address info_fst main_address main_road" data-is_main_more="false"
+                            data-mainsize="1">                                  <span class="txt_address txt_s fst"
+                                                                                      data-click_type="main"
+                                                                                      data-main_index="1"
+                                                                                      data-addr="경기 성남시 분당구 판교역로 235"
+                                                                                      data-addr_eng="235, Pangyoyeok-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea"
+                                                                                      data-addr_type="R"
+                                                                                      data-building_name="에이치스퀘어 엔동"
+                                                                                      data-building_code="4113510900106810000000001">
+                    <button class="link_post"><span class="txt_addr">경기 성남시 분당구 판교역로 235 (에이치스퀘어 엔동)</span><span
+                            class="txt_addr_eng">235, Pangyoyeok-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea</span></button>
+                                    </span>
+                        </dd>
+                        <dt class="tit_address">지 번</dt>
+                        <dd class="info_address related_address info_fst rel_jibun" data-is_more="false"
+                            data-relsize="1">
+
+
+
+
+
+
+
+
+
+                                                                <span class="txt_address txt_sel fst" data-rel_index="1"
+                                                                      data-diff_postcode="" data-diff_postcode_seq=""
+                                                                      data-diff_zonecode="" data-addr_type="J"
+                                                                      data-click_type="rel"
+                                                                      data-addr="경기 성남시 분당구 삼평동 681"
+                                                                      data-addr_eng="681, Sampyeong-dong, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea"
+                                                                      data-building_name="" data-building_code=""
+                                                                      data-house_type="" data-hname="" data-roadname=""
+                                                                      data-roadname_eng="" data-roadname_code="">
+                        <button class="link_post"><span class="txt_addr">경기 성남시 분당구 삼평동 681</span><span
+                                class="txt_addr_eng">681, Sampyeong-dong, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea</span></button>
+                                                <button class="link_viewmap" title="새창열림">지도<span class="screen_out">에서 확인하기</span></button>
+                                            </span>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+
+
+            <div class="paging_post" style="transition-delay: 0.1s;">
+                <div class="inner_paging" data-page="1">
+                    <a href="javascript:;" class="link_page link_prev"><span class="img_post">이전<span class="guide_wa"> 페이지 없음</span></span></a>
+                    <span class="screen_out">현재페이지</span><span class="num_page" data-pagetotal="1">1</span> / 1
+                    <a href="javascript:;" class="link_page link_next"><span class="img_post">다음<span class="guide_wa"> 페이지 없음</span></span></a>
+                </div>
+            </div>
+            <div class="post_layer detail_layer hide" style="top:600px;left:164px">
+                <div class="layer_head">
+                    <strong class="screen_out">상세주소 정보</strong>
+                </div>
+                <div class="layer_body"></div>
+                <div class="layer_foot">
+                    <button type="button" class="btn_close"><span class="img_post">닫기</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup_foot show">     <span class="inner_footer">
+    <span class="txt_by">Powered by </span><strong class="img_post tit_kakao">kakao</strong>
+    <span class="txt_bar"></span>
+        <a href="//postcode.map.daum.net/guide" class="link_infomation" target="_blank">우편번호 서비스 안내</a>
+    </span></div>
+<script type="text/javascript" src="//t1.daumcdn.net/postcode/cssjs/lib/jquery-1.11.0.js"></script>
+
+<script type="text/javascript" src="//t1.daumcdn.net/postcode/cssjs/service/1639620084187/service.v2.min.js"></script>
+
+
+<script type="text/javascript">
+
 </script>
+
+
 </body>
 </html>

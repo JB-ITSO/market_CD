@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>창동시장</title>
+    <title>창동골목시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="../resource/css/admin/common.css" />
@@ -21,7 +21,7 @@
 </head>
 <body>
     <script>
-        
+
         var cmd;
         var formChg;
         var msg;
@@ -51,7 +51,7 @@
 
     <div id="wrap">
         <div class="gnb-container">
-            <p class="site-name">창동시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
+            <p class="site-name">창동골목시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
             <div class="gnb-wrap">
                 <div class="menu-item active">
                     <a class="member-menu" href="/admin/memberManage"><i class="far fa-user"></i>회원 관리</a>
@@ -79,7 +79,7 @@
          <!-- Content Section -->
          <section id="container">
             <p class="page-name">회원 관리</p>
-           
+
             <div class="detail-container">
 <!--                <p class="mtype rollUser"><i class="far fa-smile"></i></i>일반 회원</p>-->
 <!--                <p class="mtype rollStore"><i class="fas fa-shopping-cart"></i>가게 회원<a class="market-btn" href="#">가게 관리</a></p>-->
@@ -141,7 +141,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </section>
     </div>
 </body>
@@ -151,11 +151,11 @@
     $(function (e) {
 
         window.onload = function(){
-            document.getElementById("addr").addEventListener("click", function(){ 
+            document.getElementById("addr").addEventListener("click", function(){
                 //카카오 지도 발생
                 new daum.Postcode({
-                    oncomplete: function(data) { 
-                        document.getElementById("addr").value = data.address; 
+                    oncomplete: function(data) {
+                        document.getElementById("addr").value = data.address;
                     }
                 }).open();
             });
