@@ -147,7 +147,7 @@ function noticeList(){
 
                 index += 1;
 
-                var regdate = `${notice.regDate}`.substr(0,25);
+                var regdate = `${notice.regDate}`.substr(0,10);
                 noticeHtml += `
                             <li>
                                 <a href="/notice/noticeDetail?nid=${notice.notice}">
@@ -249,7 +249,94 @@ function getMarketInfoWithLatLon(lat, lon){
         }
     });
 }
+// 전체 가게 찾기
+function getStoreListBySearch(keyword){
 
+    var data = {
+
+        "searchType" : "S",
+        "keyword" : keyword
+
+    };
+
+    $.ajax({
+        type: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST"
+        },
+        url: ServerUrl+"/main/getStoreListBySearch",
+        data: JSON.stringify(data),
+        success: function(result) {
+            console.log(result);
+            var storeHtml = '';
+
+            $(result.BODY).each(function(idx, store) {
+
+                var sInfo = '';
+                var isOpen = '';
+                var sthm = `${store.sthm}`;
+                var ndhm = `${store.ndhm}`;
+
+                var isOpenClass = '';
+                isOpen = isSopen(sthm, ndhm);
+                if(isOpen == '영업중'){
+                    isOpenClass = 'open';
+                }
+                else{
+                    isOpenClass = 'close';
+                }
+                if(`${store.sinfo}`.length >= 65){
+                    sInfo = `${store.sinfo}`.substr(0,65)+"...";
+                } else{
+                    sInfo = `${store.sinfo}`;
+                }
+
+                var src = 'https://via.placeholder.com/98x98';
+                if(store.files.length != 0){
+                    if(store.files[0].type != 'L'){
+                        src = ServerUrl+'/file/download?fileName='+store.files[0].path;
+                    } else {
+                        if(store.files.length != 1){
+                            src = ServerUrl+'/file/download?fileName='+store.files[1].path;
+                        }
+                    }
+                }
+
+                reviewAvg = parseFloat(`${store.avg}`).toFixed(1);
+
+                storeHtml += `
+                                <div class="list-item">
+                                    <div class="top-wrap">
+                                        <div class="img-wrap">
+                                            <a href="/store/info?sid=${store.store}">
+                                                <img src="`+src+`" width="98" height="98">
+                                            </a>
+                                        </div>
+                                        <div class="info-wrap">
+                                            <p class="market-name">
+                                                <a href="/store/info?sid=${store.store}">
+                                                    ${store.sname}
+                                                </a>
+                                            </p>
+                                            <span class="is-open `+isOpenClass+`">`+isOpen+`</span>
+                                            <span class="is-coupon">쿠폰</span>
+                                            <p class="rate-text"><img src="../resource/image/manager/rate-icon.png"><span class="rate">`+reviewAvg+`</span> (<span class="review">${store.tot}</span>)</p>
+                                            <p class="market-text"><img src="../resource/image/common/location-img.png"><span>${store.mname}</span></p>
+                                        </div>
+                                    </div>
+                                    <p class="market-info">`+sInfo+`</p>
+                                </div>            
+                                `;
+            });
+            $("#storeList").html(storeHtml);
+
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+}
 // 카테고리로 가게 찾기
 function getStoreListByCategory(category, keyword){
 
@@ -384,10 +471,11 @@ function mainCategoryList(){
     });
     if(index <= 4){
         categorySlide = new Swiper('.category-wrap', {
-            slidesPerView: 4,
-            spaceBetween: 10,
             observer: true,
             observeParents: true,
+            slidesPerView: 4,
+            spaceBetween: 10,
+            initialSlide: 0,
             scrollbar : {
                 el : '.swiper-scrollbar',
                 draggable: true,
@@ -400,11 +488,12 @@ function mainCategoryList(){
         });
     } else{
         categorySlide = new Swiper('.category-wrap', {
+            observer: true,
+            observeParents: true,
             slidesPerView: 4,
             slidesPerColumn: 2,
             spaceBetween: 10,
-            observer: true,
-            observeParents: true,
+            initialSlide: 0,
             scrollbar : {
                 el : '.swiper-scrollbar',
                 draggable: true,
