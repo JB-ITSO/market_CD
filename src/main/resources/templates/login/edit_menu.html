@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>창동시장</title>
+    <title>창동골목시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="../resource/css/common/common.css" />
@@ -24,10 +24,10 @@
         var cmd;
         var formChg;
         var msg;
-        
+
         $( document ).ready(function() {
 
-            
+
              cmd = getParameterByName('cmd');
 
             if(cmd == 1){
@@ -46,8 +46,8 @@
                 formChg = '/store/modifyMenu';
                 msg = '수정되었습니다.';
             }
-            
-            
+
+
 
         });
     </script>
@@ -79,7 +79,7 @@
                             <div class="controll-wrap">
                                 <div class="img-preview">
                                     <p class="no-img">등록된 이미지 없음</p>
-                                    <img class="preview" src="" /> 
+                                    <img class="preview" src="" />
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </section>
     </div>
 </body>
@@ -119,7 +119,7 @@
                 }
                 reader.readAsDataURL(f);
             });
-            
+
         });
 
     function comma(str) {
@@ -181,8 +181,8 @@
                 }
                 if( cmd == 1){
                     window.history.back();
-                }    
-                
+                }
+
             },
             error: function(result) {
                 console.log(result);

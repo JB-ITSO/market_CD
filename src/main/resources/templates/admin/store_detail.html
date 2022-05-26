@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>창동시장</title>
+    <title>창동골목시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="../resource/css/admin/common.css" />
@@ -22,7 +22,7 @@
 <body>
 
     <script>
-        
+
         var cmd;
         var formChg;
         var msg;
@@ -51,7 +51,7 @@
 
     <div id="wrap">
         <div class="gnb-container">
-            <p class="site-name">창동시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
+            <p class="site-name">창동골목시장 <span class="logout" onclick="fnLogout()"><i class="fas fa-sign-out-alt"></i></span></p>
             <div class="gnb-wrap">
                 <div class="menu-item">
                     <a class="member-menu" href="/admin/memberManage"><i class="far fa-user"></i>회원 관리</a>
@@ -76,7 +76,7 @@
          <!-- Content Section -->
          <section id="container">
             <p class="page-name">가게 관리</p>
-           
+
 
             <div class="detail-container">
                 <form name="market-form" type="post" onsubmit="event.preventDefault(); return checkForm();">
@@ -109,31 +109,31 @@
                         <div class="input-wrap">
                             <p class="input-label">영업일</p>
                             <label>
-                                <input type="checkbox" class="workdays1" name="workdays" value="1"/> 
+                                <input type="checkbox" class="workdays1" name="workdays" value="1"/>
                                 월
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays2" name="workdays" value="2"/> 
+                                <input type="checkbox" class="workdays2" name="workdays" value="2"/>
                                 화
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays3" name="workdays" value="3"/> 
+                                <input type="checkbox" class="workdays3" name="workdays" value="3"/>
                                 수
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays4" name="workdays" value="4"/> 
+                                <input type="checkbox" class="workdays4" name="workdays" value="4"/>
                                 목
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays5" name="workdays" value="5"/> 
+                                <input type="checkbox" class="workdays5" name="workdays" value="5"/>
                                 금
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays6" name="workdays"  value="6"/> 
+                                <input type="checkbox" class="workdays6" name="workdays"  value="6"/>
                                 토
                             </label>
                             <label>
-                                <input type="checkbox" class="workdays7" name="workdays"  value="7"/> 
+                                <input type="checkbox" class="workdays7" name="workdays"  value="7"/>
                                 일
                             </label>
                         </div>
@@ -197,9 +197,9 @@
                                     <input type="text" name="cno" value="" placeholder="혜택발급을 누르시면 번호가 생성됩니다." readonly>
                                     <span class="issue-btn">혜택 발급</span>
                                 </div>
-                                
+
                             </div>
-                        </div>  
+                        </div>
                     </div> -->
                     <div class="btn-area" href="javascript:window.history.back();">
                         <input type="submit" value="수정" />
@@ -207,7 +207,7 @@
                     </div>
                 </form>
             </div>
-            
+
 
             <div classs="menu-modal-container">
 
@@ -242,17 +242,17 @@
                 }
                 reader.readAsDataURL(f);
             });
-            
+
         });
     });
     $(function (e) {
 
         window.onload = function(){
-            document.getElementById("addr").addEventListener("click", function(){ 
+            document.getElementById("addr").addEventListener("click", function(){
                 //카카오 지도 발생
                 new daum.Postcode({
-                    oncomplete: function(data) { 
-                        document.getElementById("addr").value = data.address; 
+                    oncomplete: function(data) {
+                        document.getElementById("addr").value = data.address;
                     }
                 }).open();
             });
@@ -334,7 +334,7 @@
                 var addJson = {
                     "category" : n['value']
                 }
-                formJson[n['name']].push(addJson);            
+                formJson[n['name']].push(addJson);
             } else {
                 formJson[n['name']] = n['value'];
             }
@@ -362,7 +362,7 @@
         });
     }
 
-    
+
 </script>
 </body>
 </html>

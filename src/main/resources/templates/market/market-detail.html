@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
 
-    <title>창동시장</title>
+    <title>창동골목시장</title>
 
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="../resource/css/common/common.css" />
@@ -35,6 +35,10 @@
         noticeList();
         // 카테고리 리스트
         mainCategoryList();
+        setTimeout(function(){
+            $(".filter-menu-wrap .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)")
+        }, 300)
+
     });
 </script>
 
@@ -49,7 +53,7 @@
                 <p class="market-name">창동 시장</p>
             </div>
         </div>
-        
+
         <!-- Content Section -->
         <section id="container">
             <div class="notice-wrap">
@@ -58,7 +62,7 @@
                     <ul class="notice-list" id="notice-list">
 
                     </ul>
-                    
+
                 </div>
             </div>
             <div class="menu-tab-wrap">
@@ -72,18 +76,12 @@
             <!-- Main Slide Banner -->
             <div class="slide-banner-wrap">
                 <ul class="swiper-wrapper" id="eventSlide">
-                    <li class="swiper-slide">
-                        <img src="https://via.placeholder.com/420x180">
-                    </li>
-                    <li class="swiper-slide">
-                        <img src="https://via.placeholder.com/420x180">
-                    </li>
                 </ul>
                 <div class="swiper-pagination"></div>
             </div>
             <!-- Filter menu -->
             <div class="filter-menu-wrap">
-                <div class="category-wrap">
+                <div class="category-wrap" >
                     <ul class="swiper-wrapper" id="categoryList">
                     </ul>
                     <div class="swiper-scrollbar"></div>
@@ -152,7 +150,7 @@
             <div class="market-img-wrap" id="imgList">
                 <img src="https://via.placeholder.com/420x160">
             </div>
-            
+
 
         </section>
 
@@ -202,24 +200,6 @@
                 // Notice Rolling List
                 $('.notice-list-wrap').vTicker({showItems: 4, pause: 1500});
 
-                categorySlide = new Swiper('.category-wrap', {
-                    slidesPerView: 4,
-                    slidesPerColumn: 2,
-                    spaceBetween: 10,
-                    observer: true,
-                    observeParents: true,
-                    scrollbar : {
-                        el : '.swiper-scrollbar',
-                        draggable: true,
-                    },
-                    breakpoints: {
-                        370:{
-                            slidesPerColumn: 3,
-                            slidesPerView: 2,
-                        },
-                    }
-                });
-                    
             });
         </script>
 
