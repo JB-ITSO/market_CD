@@ -200,6 +200,9 @@ public class StoreService {
     // 가게 정보 리스트 검색용
     public List<STORE> getStoreSearchList(SEARCH search) {
         List<STORE> storeList = storeDao.getStoreSearchList(search);
+        for(STORE store : storeList){
+            store.setFiles(storeDao.getFilesInStore(store));
+        }
         return  storeList;
     }
 
